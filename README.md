@@ -32,7 +32,7 @@ AFW::createSection( 'abuWPOption', [
     'title'   =>  'Basic Fields', 
     'fields'  => [
 	
-      [ 
+          [ 
 	  	'title' => 'Text',
 		'type' => 'text',
 		'id' => 'text',
@@ -48,18 +48,19 @@ AFW::createSection( 'abuWPOption', [
 	  	'type' => 'password',
 		   'id' => 'password', 
 		   'title' => 'Passwords',
-		],
+    	  ],
       
-	   [ 
+	  [ 
 	  	'title'=> 'TextArea',
 		   'type' => 'textarea', 
 		   'id' => 'textarea',
-		],
+	  ],
     ]
 ]);
 ```
 
-#####How to get saved value ?
+#####  How to get saved value ?
+
 ```php
 $opts = get_option( 'abuWPOption' ); // unique id
 
@@ -70,12 +71,12 @@ echo $opts['textarea']; // id of the field
 
 ## Features ##
 
-##### 1.  Admin Option
-##### 2.  MetaBoxes
+##### 1. Admin Option
+##### 2. MetaBoxes
 ##### 3. TabOn
-#####4. Taxonomy
-#####5. userProfile
-#####6. Widget
+##### 4. Taxonomy
+##### 5. userProfile
+##### 6. Widget
 
 ## Available Fields
 | Accordion | Backup | Border | Button Group | Checkbox |
@@ -108,7 +109,5 @@ Please donate to help support development of AbuFramework. If, You can.
 
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 You can use AbuFramework in the premium theme/plugin and sell theme.. This framework is licensed 100% GPL as WordPress uses.
