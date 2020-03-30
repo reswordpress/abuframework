@@ -1,0 +1,414 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: AbuFramework\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-30 09:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.3.2"
+
+#: functions/long-functions.php:117 functions/long-functions.php:140
+msgid "\"id\" doesn't exits!"
+msgstr ""
+
+#: functions/long-functions.php:115 functions/long-functions.php:138
+msgid "\"type\" doesn't exits!"
+msgstr ""
+
+#: classes/WPOptions.class.php:243
+#, php-format
+msgid "Abu Framework by %sAbu Sufiyan"
+msgstr ""
+
+#: classes/WPOptions.class.php:236
+msgid "Abu Framrework <small> by Abu sufiyan</small>"
+msgstr ""
+
+#: classes/metaboxes.class.php:29
+msgid "Abu MetaBox"
+msgstr ""
+
+#. Author of the plugin
+msgid "Abu Sufiyan"
+msgstr ""
+
+#. Name of the plugin
+msgid "AbuFramework"
+msgstr ""
+
+#: classes/tabOn.class.php:43 classes/taxonomy.class.php:87
+#: classes/userProfile.class.php:81
+msgid "AbuFramework Field Start."
+msgstr ""
+
+#. Description of the plugin
+msgid "AbuFramework is Options Framework for WordPress themes and plugins."
+msgstr ""
+
+#: sample/userprofile.php:3
+msgid "AbuFramework UserProfile"
+msgstr ""
+
+#: sample/widget.php:4
+msgid "AbuFramework Widget"
+msgstr ""
+
+#: sample/widget.php:11
+msgid "AbuFramework Widget 2"
+msgstr ""
+
+#: fields/accordion/accordion.class.php:55
+#: fields/accordion/accordion.class.php:66
+msgid "Accordion "
+msgstr ""
+
+#: fields/color-picker/link-color.class.php:50
+msgid "Active"
+msgstr ""
+
+#: fields/icon/icon.class.php:23
+msgid "Add Icon"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:26
+msgid "Add Nestable"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:23
+msgid "Add New"
+msgstr ""
+
+#: fields/border/border.class.php:54 fields/icon/icon-picker.class.php:28
+#: fields/icon/icon-picker.class.php:52 fields/spacing/spacing.class.php:47
+msgid "All"
+msgstr ""
+
+#: fields/backup/backup.class.php:26
+msgid "Are you sure? Importing might lose/changed all current values."
+msgstr ""
+
+#: fields/border/border.class.php:52 fields/spacing/spacing.class.php:45
+msgid "Bottom"
+msgstr ""
+
+#: functions/short-functions.php:118
+msgid "Can\\'t Load File : "
+msgstr ""
+
+#: functions/enqueues-files.php:121
+msgid "Cancel"
+msgstr ""
+
+#: sample/taxonomy.php:17
+msgid "Cats"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:189
+msgid "Close"
+msgstr ""
+
+#: fields/color-picker/link-color.class.php:48
+msgid "Color"
+msgstr ""
+
+#: fields/backup/backup.class.php:25
+msgid "Confirmation"
+msgstr ""
+
+#: functions/enqueues-files.php:115
+msgid "Convert to Darken"
+msgstr ""
+
+#: functions/enqueues-files.php:116
+msgid "Convert to Lighten"
+msgstr ""
+
+#: fields/border/border.class.php:155
+#: fields/color-picker/color-picker.class.php:48
+#: fields/color-picker/link-color.class.php:92
+msgid "Default"
+msgstr ""
+
+#: fields/toggle/toggle.class.php:18
+msgid "Disabled"
+msgstr ""
+
+#: sample/taxonomy.php:17
+msgid "Dogs"
+msgstr ""
+
+#: fields/backup/backup.class.php:44
+msgid "Download Backup File"
+msgstr ""
+
+#: fields/toggle/toggle.class.php:17
+msgid "Enabled"
+msgstr ""
+
+#: classes/metaboxes.class.php:152 classes/WPOptions.class.php:571
+msgid "Failed"
+msgstr ""
+
+#: classes/afw.class.php:158
+msgid "Field \"id\" doesn't exits!"
+msgstr ""
+
+#: classes/afw.class.php:155
+msgid "Field \"type\" doesn't exits!"
+msgstr ""
+
+#: fields/color-picker/link-color.class.php:52
+msgid "Focus"
+msgstr ""
+
+#: fields/date/range-date-picker.class.php:33
+msgid "From"
+msgstr ""
+
+#: fields/dimensions/dimensions.class.php:43
+#: fields/spacing/spacing.class.php:63
+msgid "Height"
+msgstr ""
+
+#: fields/color-picker/link-color.class.php:49
+msgid "Hover"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://abusufiyan.com/"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:59
+msgid "ID"
+msgstr ""
+
+#: fields/backup/backup.class.php:37
+msgid "Import"
+msgstr ""
+
+#: fields/border/border.class.php:53
+msgid "Left"
+msgstr ""
+
+#: fields/spacing/spacing.class.php:46
+msgid "left"
+msgstr ""
+
+#: sample/metaboxes.php:5
+msgid "Metabox from AbuFramework"
+msgstr ""
+
+#: sample/taxonomy.php:17
+msgid "Monkeys"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:59
+msgid "Must be Uniuqe"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:104
+#: fields/nestables/nestables.class.php:148
+msgid "Nestable"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:72
+#: fields/nestables/nestables.class.php:118
+msgid "Nestable Title"
+msgstr ""
+
+#: functions/enqueues-files.php:120
+msgid "Ok"
+msgstr ""
+
+#: fields/password/password.class.php:24
+msgid "Password"
+msgstr ""
+
+#: functions/actions.php:81
+msgid "Please insert data."
+msgstr ""
+
+#: sample/taxonomy.php:17
+msgid "Radio"
+msgstr ""
+
+#: fields/nestables/nestables.class.php:24 fields/upload/upload.class.php:25
+msgid "Remove All"
+msgstr ""
+
+#: fields/icon/icon.class.php:24
+msgid "Remove Icon"
+msgstr ""
+
+#: classes/WPOptions.class.php:250 classes/WPOptions.class.php:341
+msgid "Reset All"
+msgstr ""
+
+#: classes/WPOptions.class.php:257
+msgid "Reset Changes"
+msgstr ""
+
+#: classes/WPOptions.class.php:264
+msgid "Reset Section"
+msgstr ""
+
+#: fields/border/border.class.php:51 fields/spacing/spacing.class.php:44
+msgid "Right"
+msgstr ""
+
+#: classes/WPOptions.class.php:271
+msgid "Save"
+msgstr ""
+
+#: classes/WPOptions.class.php:330
+msgid "Saving..."
+msgstr ""
+
+#: fields/icon/icon-picker.class.php:26
+msgid "Search icons..."
+msgstr ""
+
+#: classes/WPOptions.class.php:422
+msgid "Search in section..."
+msgstr ""
+
+#: functions/actions.php:83
+msgid "Secret key does not verified."
+msgstr ""
+
+#: fields/border/border.class.php:152
+#: fields/color-picker/color-picker.class.php:40
+#: fields/color-picker/link-color.class.php:82
+msgid "Select Color"
+msgstr ""
+
+#: classes/WPOptions.class.php:221
+msgid "Settings Saved"
+msgstr ""
+
+#: functions/enqueues-files.php:118
+msgid "Settings Saved successfully!"
+msgstr ""
+
+#: classes/WPOptions.class.php:562 classes/WPOptions.class.php:611
+#: functions/enqueues-files.php:119
+msgid "Something went wrong!"
+msgstr ""
+
+#: functions/actions.php:86
+msgid "Something went wrong. Please, Try again."
+msgstr ""
+
+#: sample/taxonomy.php:16 sample/taxonomy.php:17 sample/taxonomy.php:18
+msgid "subtitle"
+msgstr ""
+
+#: fields/tabs/tabs.class.php:33 fields/tabs/tabs.class.php:43
+msgid "Tab"
+msgstr ""
+
+#: sample/taxonomy.php:6
+msgid "Taxonomy from AbuFramework"
+msgstr ""
+
+#: sample/taxonomy.php:11 sample/taxonomy.php:16
+msgid "Text"
+msgstr ""
+
+#: sample/taxonomy.php:18
+msgid "TextArea"
+msgstr ""
+
+#: classes/WPOptions.class.php:538
+#, php-format
+msgid "Thank you for creating with %s Abu Framework %s"
+msgstr ""
+
+#: fields/imageselect/imageselect.class.php:56
+msgid "There is no Options"
+msgstr ""
+
+#: fields/button-group/button-group.class.php:62
+#: fields/checkbox/checkbox.class.php:67 fields/checkbox/checkbox.class.php:77
+#: fields/radio/radio.class.php:50 fields/radio/radio.class.php:62
+#: fields/radio/radio.class.php:66 fields/select/select.class.php:103
+msgid "There is no options"
+msgstr ""
+
+#: functions/long-functions.php:111
+msgid "This field class is not available!"
+msgstr ""
+
+#: sample/taxonomy.php:18
+msgid "This is default value of this Textarea."
+msgstr ""
+
+#: sample/taxonomy.php:16
+msgid "This is placeholder"
+msgstr ""
+
+#: classes/WPOptions.class.php:464
+msgid "This section is Empty."
+msgstr ""
+
+#: fields/nestables/nestables.class.php:58
+msgid "Title"
+msgstr ""
+
+#: fields/date/range-date-picker.class.php:34
+msgid "To"
+msgstr ""
+
+#: fields/border/border.class.php:50 fields/spacing/spacing.class.php:43
+msgid "Top"
+msgstr ""
+
+#: fields/border/border.class.php:153
+#: fields/color-picker/color-picker.class.php:41
+#: fields/color-picker/link-color.class.php:83
+msgid "Transparent"
+msgstr ""
+
+#: fields/upload/upload.class.php:24
+msgid "Upload"
+msgstr ""
+
+#: fields/password/password.class.php:21
+msgid "Username"
+msgstr ""
+
+#: fields/color-picker/link-color.class.php:51
+msgid "Visited"
+msgstr ""
+
+#: fields/backup/backup.class.php:38
+msgid ""
+"WARNING! This will overwrite all existing option values, We recommed to make "
+"a backup first of all existing optins"
+msgstr ""
+
+#: fields/dimensions/dimensions.class.php:42
+#: fields/spacing/spacing.class.php:62
+msgid "Width"
+msgstr ""
+
+#: classes/userProfile.class.php:106
+msgid "You don't have permission."
+msgstr ""
+
+#: fields/accordion/accordion.class.php:52
+msgid "You're using sortable. You've have to set single accordion id."
+msgstr ""
+
+#: sample/taxonomy.php:17
+msgid "Zebra"
+msgstr ""
