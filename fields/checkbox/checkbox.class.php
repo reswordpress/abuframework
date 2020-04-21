@@ -19,13 +19,15 @@ class abuFrameworkField_checkbox extends abuFrameworkFields {
       'order'    => 'title',
       'orderby'  => 'date',
     ],
-    'horizontal' => true
+    'inline'  => true,
+    'disabled'    => []
   ];
 
   private function abuCheckInput( $title = '', $value = '', $checked = false, $multiple = false ) {
-    return '<li><label><input ' .
+    $d = ( in_array( $value, $this->disabled ) ? ' disabled="disabled" ' : '' );
+    return '<li ' . $d . '><label><input ' .
       $this->bulk_tattv(
-       [ 'disallowed' => [ 'style', 'required', 'attr' ]  ],
+       [ 'disallowed' => [ 'style', 'required' ]  ],
        [
          'type' => [ 1 ],
          'value' => [ 1, '', $value ],
@@ -33,7 +35,7 @@ class abuFrameworkField_checkbox extends abuFrameworkFields {
          'class' => [ 1 ],
          'id' => [ 1, '_' . $value ],
        ]
-     ) .  abu_input_attribute_helper( 1, $checked )  . '>' . $title.'</li></label>';
+     ) .  ( $checked ? ' checked="checked" ' : '' ) . $d . '>' . $title.'</li></label>';
   }
 
   private $values = [];
@@ -46,16 +48,19 @@ class abuFrameworkField_checkbox extends abuFrameworkFields {
 
   public function render_field(){
     
-    $o = '<div class="abu-checkbox-wrapper"><ul class="' . ( $this->extra['horizontal'] ? 'horizontal' : 'vertical' ) . '">';
+    $f = $this->f;
+    $this->disabled = $disabled = is_array( $f['disabled'] ) ? $f['disabled'] : []; 
+    
+    $o = '<div class="abu-checkbox-wrapper"><ul class="' . ( $this->extra['inline'] ? 'horizontal' : 'vertical' ) . '">';
 
-      if( isset($this->extra['options']) && is_array( $this->extra['options'] ) ) {
+      if( isset($this->extra['options']) && is_array( $this->extra['options'] ) && empty( $f['label'] ) ) {
 
         // Looping throw every options
         foreach ($this->f['options'] as $value => $title) {
           $o .= $this->abuCheckInput( $title, $value, in_array( $value, $this->values ), true );
         }
 
-      } else if ( isset($this->extra['options']) && is_string( $this->extra['options'] ) ) {
+      } else if ( isset($this->extra['options']) && is_string( $this->extra['options'] ) && empty( $f['label'] ) ) {
 
          // Looping throw wp core data
          $core_data = $this->core_data( $this->extra['options'], $this->extra['query_args'] );
@@ -72,7 +77,7 @@ class abuFrameworkField_checkbox extends abuFrameworkFields {
         // else single check box
         if( isset( $this->extra['label'] ) && ! empty( $this->extra['label'] ) ) {
           $single_value =  ( ! is_array( $this->value_tattv() ) ) ? abuBoolean( $this->value_tattv() ) : false;
-          $o .= $this->abuCheckInput( $this->extra['label'], $single_value, false );
+          $o .= $this->abuCheckInput( $this->extra['label'], 1, $single_value, false );
         } else {
           $o .= __( 'There is no options', 'AbuFramework' );
         }

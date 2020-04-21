@@ -167,8 +167,7 @@ class abuFrameworkField_border extends abuFrameworkFields {
     $o .= '</div>';
 
     $classes = [];
-    if( $this->extra['wp-picker'] )
-      $classes['element-class'] = 'abu-field-wp-color-picker';
+    $classes['element-class'] = $this->extra['wp-picker'] ? 'abu-field-wp-color-picker' : 'abu-field-a-color-picker';
 
     return $this->createField( $o, false, $classes );
 

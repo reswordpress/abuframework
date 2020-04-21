@@ -20,8 +20,8 @@ class abuFrameworkField_spinner extends abuFrameworkFields {
 
     $field = abu_field_extra( $this->f, [
       'placeholder' => '',
-      'min' => '',
-      'max' => '',
+      'min' => 0,
+      'max' => 100,
       'step' => 1,
       'unit' => true,
       'units' => 'px',
@@ -38,7 +38,7 @@ class abuFrameworkField_spinner extends abuFrameworkFields {
     $min = ! empty( $field['min'] ) ? ' data-min="' .  esc_attr( $field['min'] ) . '" ' : '';
 
     $o = '<div class="abu-spinner-wrapper abu-pull-left">';
-        $o .= '<input type="' . esc_attr( $field['typetag'] ) . '" ' . $this->name_tattv( 1, '[value]' ) . $this->bulk_tattv( [ 'disallowed' => [ 'id', 'name', 'type', 'value', 'class'] ] ) .  $this->class_tattv( 1, ' abu-field-number abu-spinner-input') . '" value="' .  esc_attr( $value ) . '"' . abu_array_atr([ 'data-step' => $field['step'], 'data-min' => $field['min'], 'data-max' => $field['max'] ] )  . '>';
+        $o .= '<input type="' . esc_attr( $field['typetag'] ) . '" value="' .  esc_attr( $value ) . '"' . $this->name_tattv( 1, '[value]' ) . $this->bulk_tattv( [ 'disallowed' => [ 'id', 'name', 'type', 'value', 'class'] ] ) .  $this->class_tattv( 1, ' abu-field-number abu-spinner-input') . abu_array_atr( [ 'data-step' => $field['step'], 'data-min' => $field['min'], 'data-max' => $field['max'] ] )  . ' role="spinbutton">';
         if( $field['unit'] ) {
           $o .= is_string( $field['units'] ) != false ? '<div class="abu-spinner-unit">' . esc_html(  $field['units'] ) . '</div><input type="hidden" ' . $this->name_tattv( true, '[unit]' ) . ' value="' . esc_attr( $field['units'] ) . '"/>' : '';
           if( is_array( $field['units'] ) ) {

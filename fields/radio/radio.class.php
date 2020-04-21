@@ -16,13 +16,14 @@ class abuFrameworkField_radio extends abuFrameworkFields {
       'order'    => 'title',
       'orderby'  => 'name',
     ],
-    'horizontal' => true
+    'inline'      => true,
+    'disabled'    => []
   ];
 
 
   private function abuRadioInput( $title = '', $value = '', $checked = false, $multiple = false ) {
-
-    return  '<li><label><input type="radio" ' .  ' value="' . esc_attr( $value ) . '" ' . $this->bulk_tattv([ 'disallowed' => ['type', 'value'] ], [ 'id' => [ 1, "_$value" ] ]) . abu_input_attribute_helper( 1, $checked  ) . '>'  . $title . '</label></li>';
+    $d = ( in_array( $value, $this->disabled ) ? ' disabled="disabled" ' : '' );
+    return  '<li' . $d .'>' . '<label><input type="radio" ' .  ' value="' . esc_attr( $value ) . '" ' . $this->bulk_tattv([ 'disallowed' => ['type', 'value'] ], [ 'id' => [ 1, "_$value" ] ]) . ( $checked ? ' checked="checked" ' : '' ) . $d . '>'  . $title . '</label></li>';
 
   }
 
@@ -36,8 +37,9 @@ class abuFrameworkField_radio extends abuFrameworkFields {
 
     $values = $this->value_tattv();
     $values = $values ? $values : false;
+    $this->disabled = $disabled = is_array( $this->f['disabled'] ) ? $this->f['disabled'] : []; 
     $o = '<div class="abu-checkbox-wrapper">';
-      $o .= '<ul class="' . ( $this->extra['horizontal'] ? 'horizontal' : 'vertical' ) . '">';
+      $o .= '<ul class="' . ( $this->extra['inline'] ? 'horizontal' : 'vertical' ) . '">';
 
         if( is_array( $this->extra['options'] ) ) {
 

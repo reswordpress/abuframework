@@ -47,7 +47,7 @@ class abuFrameworkField_sortable extends abuFrameworkFields {
 
   }
 
-  public function sort_arrays( $fields, $values ){
+  public function sort_arrays( $fields, $values ) {
 
     $o = [];
     $values = array_keys($values);

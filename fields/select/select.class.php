@@ -69,7 +69,7 @@ class AbuFrameworkField_select extends AbuFrameworkFields {
           if( ! $is_grp ) {
             $options  .= '<optgroup label="' . esc_attr( $value ) . '">';
               foreach( $title as $i => $ttl ) {
-                $mediatitle = abu_ekey( 'title', $ttl, $ttl );
+                $mediatitle = abu_ekey( 'title', $ttl, ucwords( $ttl ) );
                 $mediaicon  = abu_ekey( 'icon', $ttl, '' );
                 $mediaimg   = abu_ekey( 'img', $ttl, '' );
                 $mediaimg   = abu_ekey( 'image', $ttl, $mediaimg );
@@ -96,9 +96,9 @@ class AbuFrameworkField_select extends AbuFrameworkFields {
 
     $o = '<div class="abu-select-wrapper">';
     if( ! empty( $options ) ) {
-      $o .= '<select ' . $this->name_tattv( 1, ( $multiple ? '[]' : '' ) )  . $this->bulk_tattv([ 'disallowed' => [ 'value', 'name', 'type', 'id', 'class' ]]) . ( $multiple ? ' multiple ' : '' ) . $this->class_tattv( 1, [ $chosen ] ) . '>';
+      $o .= '<select ' . $this->name_tattv( 1, ( $multiple ? '[]' : '' ) )  . $this->bulk_tattv([ 'disallowed' => [ 'value', 'name', 'type', 'id', 'class'  ]]) . ( $multiple ? ' multiple ' : '' ) . $this->class_tattv( true, [ $chosen ] ) . '>';
         $o .= $options;
-      $o .= '</' . $this->type_tattv() . '> ';
+      $o .= '</select>';
     } else {
       $o .= __( 'There is no options', 'AbuFramework' );
     }

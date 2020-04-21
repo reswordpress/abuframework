@@ -87,3 +87,5 @@ class abuFrameworkField_icon extends abuFrameworkFields {
 
 
 }
+
+AFW::might_include( 'icon_picker' );

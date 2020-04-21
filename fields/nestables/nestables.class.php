@@ -14,12 +14,12 @@ class abuFrameworkField_nestables extends abuFrameworkFields {
   public $keys = 0;
   
   public function __construct( $f, $v = '', $name = '', $place = '' ) {
-    parent::__construct( $f, $v, [ 'before_senitize' => 'abu_sanitize_nestables' ], $name, $place );
+    parent::__construct( $f, $v, [], $name, $place );
   }
 
   public function render_field() {
 
-    $f     = abu_field_extra($this->f,[
+    $f  = abu_field_extra($this->f,[
       'add_button'   => __( 'Add New', 'AbuFramework' ),
       'remove_all'   => __( 'Remove All', 'AbuFramework' ),
       'list_adding'  => true,
@@ -27,15 +27,12 @@ class abuFrameworkField_nestables extends abuFrameworkFields {
     ]);
     $id = $this->id_tattv();
     $value = $this->value_tattv();
-    if( ! is_null( $value ) ) $value = is_array( $value ) ? $value : [];
+    if( ! is_null( $value ) ) $value = is_array( $value ) ? ( isset( $value['serialized'] ) ? abu_sanitize_before_nestables($value) : $value ) : [];
     $name  = $this->name_tattv();
     $serialized = [];
     $all_nestables = is_array( $f['nestables'] ) ? $this->get_nestables($f['nestables']) : [];
     $list_nestables = [];
     if( ! empty($value) ) {
-      // if( isset( $value['serialized'] ) ) {
-      //   $value = abu_sanitize_nestables( $value );
-      // } 
       $list_nestables = $this->set_nestables( $value, $all_nestables );
     } elseif( is_null( $value ) ) {
       $list_nestables = [];
@@ -117,10 +114,10 @@ class abuFrameworkField_nestables extends abuFrameworkFields {
               $o .= '<div class="dd-contents ">';
                 $o .= add_abu_sub_tattv( [ 'title' => __( 'Nestable Title', 'AbuFramework' ), 'type' => 'text', 'id' => $nestable_id . '_title', 'class' => 'abu-nestable-title' ], $title, 'empty' , 'NaO' );
                 if( isset( $f['fields'] ) ) {
+                  $field_name  =  $nestable_name;
+                  $nestable['values'] = isset($nestable['values']) ? $nestable['values'] : [];
                   foreach( $f['fields'] as $field ) {
-                    $field_name  =  $nestable_name;
-                    $nestable['values'] = isset($nestable['values']) ? $nestable['values'] : [];
-                    $field_value = abu_ekey( $field['id'], $nestable, '' );
+                    $field_value = abu_ekey( $field['id'], $nestable['values'], '' );
                     $o .= add_abu_sub_tattv( $field, $field_value, $field_name , 'NaO' );
                   }
                 }
