@@ -102,19 +102,22 @@ if ( ! function_exists( 'add_abu_tattv' ) ) {
    }
    
    if( abu_iekey( 'type', $field ) && abu_iekey( 'id', $field ) ) {
+
+     if( ! class_exists( $abufield ) ) AFW::might_include( $field['type'] );
+     
      if( class_exists( $abufield ) ) {
        ob_start();
        $o .= ( new $abufield( $field, $value, $name, $place ) )->render_field();
        $o .= ob_get_contents();
        ob_end_clean();
      } else {
-       $o .= '<p class="abu-noticed abu-danger">'. esc_html__( 'This field class is not available!', 'AbuFramework' ) . $abufield .'</p>';
+       $o .= '<div class="abu-element"><p class="abu-noticed abu-danger">'. esc_html__( 'This field class is not available!', 'AbuFramework' ) . $abufield .'</p></div>';
      }
    } else {
       if( ! abu_iekey( 'type', $field ) ) {
-        $o .= '<p class="abu-noticed abu-danger">'. esc_html__( '"type" doesn\'t exits!', 'AbuFramework' ) .'</p>';
+        $o .= '<div class="abu-element"><p class="abu-noticed abu-danger">'. esc_html__( '"type" doesn\'t exits!', 'AbuFramework' ) .'</p></div>';
       } elseif( ! abu_iekey( 'id', $field ) ) {
-        $o .= '<p class="abu-noticed abu-danger">'. esc_html__( '"id" doesn\'t exits!', 'AbuFramework' ) .'</p>';
+        $o .= '<div class="abu-element"><p class="abu-noticed abu-danger">'. esc_html__( '"id" doesn\'t exits!', 'AbuFramework' ) .'</p></div>';
       }
    }
    return $o;
@@ -275,18 +278,30 @@ if( ! function_exists( 'abu_sanitization_validation_escaping' ) ) {
         $value = isset( $r[$field['id']] ) ? $r[$field['id']] : '';
         $type  = isset( $field['type'] ) ? $field['type'] : '';
         $id    = $field['id'];
-  
+
         if( isset( $field['before_senitize'] ) ) {
-          $value = call_user_func( $field['before_senitize'], $value, $field );
+          if( function_exists( $field['before_senitize'] ) ) {
+            $value =  call_user_func( $field['before_senitize'], $value, $field );
+          }
+        } else {
+          // Default AbuFramework's Sanitize values
+          $senitize = 'abu_sanitize_before_' . str_replace( '-', '_', strtolower( $type ));
+          if( function_exists( $senitize ) ) {
+            $value = call_user_func( $senitize, $value, $field  );
+          }
         }
-  
+        
         // Sanitizing Value
-        if( isset( $field['senitize'] ) && function_exists( $field['senitize'] ) ) {
-  
-          $value =  call_user_func( $field['senitize'], $value, $field );
+        if( isset( $field['senitize'] ) ) {
+          
+          if( function_exists( $field['senitize'] ) ) {
+            $value =  call_user_func( $field['senitize'], $value, $field );
+          }
+          
   
         } else {
           
+
           // Default AbuFramework's Sanitize values
           $senitize = 'abu_sanitize_' . str_replace( '-', '_', strtolower( $type ));
           if( function_exists( $senitize ) ) {
@@ -307,6 +322,7 @@ if( ! function_exists( 'abu_sanitization_validation_escaping' ) ) {
         }
         
         $r[ $id ] = $value;
+        continue;
         
       }
     }

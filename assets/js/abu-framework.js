@@ -38,7 +38,7 @@
   }
   
   // adding a new Function
-  jQuery.fn.abuConformation = function () {
+  $.fn.abuConformation = function () {
     return this.each(function(){
       var t = $(this);
       
@@ -59,7 +59,7 @@
       });
     });
   };
-  jQuery.fn.hasAttr = function(o) {
+  $.fn.hasAttr = function(o) {
     o = o.toString().toLowerCase();
     var output, attr = $(this).attr(o);
     if (typeof attr !== typeof undefined && attr !== false) {
@@ -69,7 +69,7 @@
     }
     return output;
   };
-  jQuery.fn.getAttr = function(o = null) {
+  $.fn.getAttr = function(o = null) {
     return this.each(function(o = null) {
       o = o.toString().toLowerCase();
       var output, attr = $(this).attr(o);
@@ -81,7 +81,7 @@
       return output;
     });
   };
-  jQuery.fn.abuRemover = function ( remover = '', shower = '', w = 'show' ) {
+  $.fn.abuRemover = function ( remover = '', shower = '', w = 'show' ) {
     $(this).on('click', function () {
       var l = $(this);
       l.closest(remover).fadeOut().remove();
@@ -95,17 +95,22 @@
     })
   };
 
-  jQuery.fn.abuAjax = function (options) {
+  $.fn.abuAjaxSave = function (options) {
     return this.each(function () {
-      var t = $(this),
-        form = t.children('form'),
+      var t   = $(this),
+        form  = t.children('form'),
+        save  = form.find('.abu-save-botton[type="submit"]'),
+        reset = form.find('.abu-section-reset-btn'),
+        chngs = form.find('.abu-section-reset-chngs'),
+        resetAll = form.find('.abu-reset-botton'),
+        buttons = save.add(reset).add(chngs).add(resetAll),
         abuAction = {},
         is_able = t.data('abu-ajax');
       ABUFRAMEWORK.vars.ajax = is_able;
       
       if (!is_able) return;
 
-      form.find('.abu-save-botton[type="submit"]').on('click', function (e) {
+      save.on('click', function (e) {
 
         e.preventDefault();
         var l = $(this),
@@ -115,59 +120,59 @@
 
         spnr.addClass('is-active');
         l.val(ltxt);
-        l.prop('disabled', true);
+        buttons.prop('disabled', true);
         form.children('.abu-reset-section').val('');
 
         window.wp.ajax.post(t.attr('id'), {
           data: form.serializeJSON()
         })
-          .done(function (r) {
+        .done(function (r) {
 
-            spnr.removeClass('is-active');
-            l.val(cval);
-            l.prop('disabled', false);
+          spnr.removeClass('is-active');
+          l.val(cval);
+          buttons.prop('disabled', false);
 
-            t.closest('.abu-options-body').find('[abu-section-id] > a > .abu-section-nav-error').fadeOut('fast').text(0);
-            t.closest('.abu-options-body').find('.abu-single-section .abu-field-error').fadeOut('fast').text('');
+          t.closest('.abu-options-body').find('[abu-section-id] > a > .abu-section-nav-error').fadeOut('fast').text(0);
+          t.closest('.abu-options-body').find('.abu-single-section .abu-field-error').fadeOut('fast').text('');
 
-            mdtoast(AbuFramework.i18n.saveSettings);
+          mdtoast(AbuFramework.i18n.saveSettings);
 
-            var secs = [],
-              counts = {};
+          var secs = [],
+            counts = {};
 
-            if (typeof r.errors == 'object') {
-              $.each(r.errors, function (i, v) {
-                if (v == 'success') return;
-                var field = $('[abu-field-id="' + i + '"]'),
-                  secID = field.closest('.abu-single-section').attr('id');
-                secID = secID.replace('abu-section-', '');
-                field.find('.abu-field-error').fadeIn().empty().html(v);
-                secs.push(secID);
-                if (counts[secID] === undefined) {
-                  counts[secID] = 1;
-                } else {
-                  counts[secID] = Number(counts[secID]) + 1;
-                }
+          if (typeof r.errors == 'object') {
+            $.each(r.errors, function (i, v) {
+              if (v == 'success') return;
+              var field = $('[abu-field-id="' + i + '"]'),
+                secID = field.closest('.abu-single-section').attr('id');
+              secID = secID.replace('abu-section-', '');
+              field.find('.abu-field-error').fadeIn().empty().html(v);
+              secs.push(secID);
+              if (counts[secID] === undefined) {
+                counts[secID] = 1;
+              } else {
+                counts[secID] = Number(counts[secID]) + 1;
+              }
 
-              });
-            }
+            });
+          }
 
 
-            if (Object.keys(counts).length > 0) {
-              $.each(counts, function (i, s) {
-                var l = $(this),
-                  parent = t.closest('.abu-options-framework').find('[abu-section-id="' + i + '"] > a > .abu-section-nav-error');
-                parent.text(s).fadeIn('slow').css("display", "inline-block");
-              });
-            }
+          if (Object.keys(counts).length > 0) {
+            $.each(counts, function (i, s) {
+              var l = $(this),
+                parent = t.closest('.abu-options-framework').find('[abu-section-id="' + i + '"] > a > .abu-section-nav-error');
+              parent.text(s).fadeIn('slow').css("display", "inline-block");
+            });
+          }
 
-          })
-          .fail(function (response) {
-            spnr.removeClass('is-active');
-            l.val(cval);
-            l.prop('disabled', false);
-            mdtoast(response.text);
-          })
+        })
+        .fail(function (response) {
+          spnr.removeClass('is-active');
+          l.val(cval);
+          buttons.prop('disabled', false);
+          mdtoast(response.text);
+        })
 
       });
 
@@ -175,13 +180,14 @@
         var section = form.find('.abu-all-sections > .abu-single-section').attr('id');
         if (section == undefined) return;
         section = section.replace('abu-section-', '');
+        buttons.prop('disabled', true);
         $.sendAjaxTab({ action: t.attr('id') + '_fields', data: { section_id: section } }, {
           'content_target': '#abu-section-' + section + ' > .abu-elements',
           'section': section
-        });
+        }, () => buttons.prop('disabled', false) );
       }
 
-      form.find('.abu-section-reset-btn').on('click', function (e) {
+      reset.on('click', function (e) {
         e.preventDefault();
         var l = $(this),
           target = l.closest('.abu-single-section').children('.abu-elements'),
@@ -192,6 +198,7 @@
           return;
         }
 
+        buttons.prop('disabled', true);
         target.removeClass('ajax-completed');
         form.children('.abu-reset-section').val(id);
 
@@ -202,31 +209,32 @@
           $.sendAjaxTab({ action: t.attr('id') + '_fields', data: { section_id: id } }, {
             'content_target': '#abu-section-' + id + ' > .abu-elements',
             'section': id
-          });
+          }, () => buttons.prop('disabled', false) );
         });
 
       })
 
-      form.find('.abu-section-reset-chngs').on('click', function(e){
+      chngs.on('click', function(e){
         e.preventDefault();
         var l = $(this),
           target = l.closest('.abu-single-section').children('.abu-elements'),
           id = l.data('section-id');
 
         if (id == undefined) return;
+        buttons.prop('disabled', true);
         target.removeClass('ajax-completed');
 
         $.sendAjaxTab({ action: t.attr('id') + '_fields', data: { section_id: id } }, {
           'content_target': '#abu-section-' + id + ' > .abu-elements',
           'section': id
-        });
+        }, () => buttons.prop('disabled', false) );
 
       });
 
     });
   };
 
-  jQuery.sendAjaxTab = function (d, f) {
+  $.sendAjaxTab = function (d, f, callback = function(){}) {
       
     if ( ! ABUFRAMEWORK.vars.ajax ) return;
 
@@ -240,7 +248,7 @@
         secInput.val(JSON.stringify(secInputVal) );
       }
       
-      jQuery.ajax({
+      $.ajax({
         type : "post",
         dataType : "html",
         url: AbuFramework.ajaxurl,
@@ -250,29 +258,59 @@
         },
         success: function( response, status ) {
           if( status == "success" ) {
-              $(f.content_target)
-              .addClass( 'ajax-completed' )
-              .hide().empty().html( response )
-              .fadeIn().abuFrameworkInit();                
+            var t = 0;
+            $(f.content_target)
+            .addClass( 'ajax-completed' )
+            .hide().empty().html( response ).show()
+            .children('.abu-element').hide().each(function(){
+              $(this).slideDown(t);
+              t += 100;
+            })
+            .parent().abuFrameworkInit();                
           } else {
-          }
+            mdtoast( status + ' : ' + response );
+            mdtoast( AbuFramework.i18n.error );
+          } 
         },
         error: function (xhr, status, error) {
           $(f.content_target).empty().html(xhr);
-          console.log(error) ;
+          console.log(status + ' : ' + error);
+          mdtoast(error);
+          mdtoast(AbuFramework.i18n.error);
+        },
+        complete: function () {
+          return callback( d, f );
         }
       });
+
     }
 
   };
 
   // Abu Framework Tab & Section
-  jQuery.fn.abuFrameworkTabSecionToggles = function() {
+  $.fn.abuFrameworkTabSecionToggles = function() {
     return this.each(function() {
 
       // declared global variables
       var abuSectionNav, abuTablinks, subMenuToggle,
           framework_id = $(this).closest('.abu-options-framework').attr('id');
+
+      if ( pagenow ) {
+        var toplevel = $('#' + pagenow  );      
+        if( toplevel.length ) {
+          toplevel.children( 'ul.wp-submenu-wrap' ).children('li').each( function (i,el) {
+            var l = $(this), ind, src,
+                c = l.children('a');
+            var str = c.attr('href');
+            if ($.type(str) == 'string') {
+              src = '#section=';
+              ind = str.slice( str.indexOf(src) + src.length) ;
+              l.attr('abu-depend-controller' , ind );
+            }
+          });
+        }
+      }
+
 
       function abuHashFunction( Selector ) {
         if (Selector.length > 0 && Selector.indexOf( '#section=' ) > -1 ) {
@@ -351,7 +389,7 @@
           }
           
           // hiding anothers sub-menus. If nultiples is on
-          if ( ! window[framework_id + '_var']['show_multi'] ) {            
+          if ( ! window[framework_id + '_var']['show_multi'] ) {
             parentList = parentList.siblings('li').not('.child-activated, .active');
             parentList.children('ul.sub-menus').slideUp(200);
             parentList.removeClass('open');
@@ -376,19 +414,6 @@
          is_parent = parent.hasClass('abu-tablinks'),
          has_sub = parent.hasClass('has-sub'),
          abuSectionAttr = parent.attr(aAbu+bBu+'u-section-id');
-         
-        if (parent.data('fields') > 0) {
-           $.sendAjaxTab({ 
-             action: framework_id + '_fields', 
-             data: { 
-               section_id: abuSectionAttr,
-
-             }}, { 
-             'content_target' : '#abu-section-' + abuSectionAttr + ' > .abu-elements',
-             'section': abuSectionAttr
-           });
-         }
-
          
 
          // returning false, if, section already actived
@@ -452,6 +477,16 @@
           parent.find('ul').slideUp(200);
         }
 
+        if ( parent.data('fields') > 0 ) {
+          $.sendAjaxTab({
+            action: framework_id + '_fields',
+            data: {  section_id: abuSectionAttr, }
+          }, {
+            'content_target': '#abu-section-' + abuSectionAttr + ' > .abu-elements',
+            'section': abuSectionAttr
+          });
+        }
+
       });
       // End of click to nave and so its section
 
@@ -465,26 +500,8 @@
     });
   };
 
-  /// this is solved questions but look at ( this )
-  jQuery.fn.abuScrollerFunctions = function() {
-    return this.each(function() {
-      function abuHeaderFixed() {
-        var ab = 'ab', u = 'u', uba = ab+u,
-        abuHeader = $('.'+ab+u+'-options-head'),
-        abuHeaderHeight = abuHeader.innerHeight(),
-        abuHeaderPostion = abuHeader.position(),
-        abuAfterAdd = abuHeaderHeight+abuHeaderPostion.top+10,
-        abuCurrentScrollPos = $(window).scrollTop();
-        if (abuCurrentScrollPos > abuAfterAdd) {
-          // ( this )
-        } else {
-          // ( this )
-        }
-      }
-    });
-  };
 
-  jQuery.fn.abuInputsVal = function(){
+  $.fn.abuInputsVal = function(){
     return this.each(function(o) {
       var g = $(this),
           s = $.extend({
@@ -505,7 +522,7 @@
   };
 
   // Dependency;\
-  jQuery.fn.abuDependency = function(){
+  $.fn.abuDependency = function(){
     return this.each(function( options ) {
       
       // declared function's global variables
@@ -586,7 +603,8 @@
             // declared function local variables
             var allControllers = $.makeArray( s.attr('abu-depend-controller').split('|') ),
             abuCon = s.attr('abu-depend-condition'),
-            abuVal = s.attr('abu-depend-value');
+            abuVal = s.attr('abu-depend-value'),
+            addable = s.hasClass('parent-section');
 
             // creating a array for storing every depends finale value
             var finalOutput;
@@ -864,13 +882,15 @@
 
             });
             
+
             // Showing/Hiding elements
-            if( ! Boolean( $.inArray( false, finalOutput ) > -1 ) ) {              
-              s.fadeIn('fast', function () {
+            addable = addable ? $('.wp-submenu.wp-submenu-wrap').children('li[abu-depend-controller="' + s.attr('abu-section-id') + '"]') : $('nadaji');
+            if( ! Boolean( $.inArray( false, finalOutput ) > -1 ) ) {
+              s.add(addable).fadeIn('fast', function () {
                 $(this).removeClass('abu-closed abu-depend-false').addClass('abu-opened').attr('abu-depend', 'true');
               });
             } else {
-              s.fadeOut('fast', function() {
+              s.add(addable).fadeOut('fast', function() {
                 $(this).addClass('abu-closed abu-depend-false').removeClass('abu-opened').attr('abu-depend','false');
               });
             }
@@ -880,7 +900,6 @@
 
           // Live Showing/Hiding Elements
           var abuEachBind = $.makeArray( abuController.split('|') );
-          
           $.each(abuEachBind, function(i, v) {
             $('[abu-depend-id="' + v + '"]').on( 'input change click', function(){
               abuDependency(lthis, null);
@@ -898,10 +917,10 @@
   };
 
   // Totally Search
-  jQuery.fn.abuTotallySearch = function(){
+  $.fn.abuTotallySearch = function(){
     return this.each(function( options ) {
 
-      $('.abu-section-search-field').each( function() {  
+      $('.abu-section-search-field').each( function() {
         var t = $(this), val,
         sec = t.closest('.abu-single-section'),
         els = sec.children('.abu-elements'),
@@ -922,7 +941,7 @@
               var l = $(this),
                 ltxt = l.text().toLowerCase();
               if (ltxt.indexOf(val) != -1) {
-                l.show();
+                l.show().removeClass('pulse animated');
                 $(l).on('click', function (e) {
                   $(this).off(e);
                   el.off('click').show();
@@ -932,8 +951,7 @@
                     top: $(l).offset().top - 300,
                     behavior: 'smooth'
                   });
-                  l.delay(600).effect("highlight");
-
+                  l.delay(1000).effect("highlight").addClass('pulse animated');
                 });
               }
             });
@@ -946,7 +964,7 @@
     });
   };
 
-  jQuery.fn.abuColorPickers = function(){
+  $.fn.abuColorPickers = function(){
     return this.each(function() {
       var g = $(this);
 
@@ -1014,7 +1032,7 @@
   };
 
   // Image-select
-  jQuery.fn.AbuImagesSelects = function(){
+  $.fn.AbuImagesSelects = function(){
     return this.each(function(index) {
       var abuSelectElement = $(this), is_abuMultipleSelect,
       abuSelectsWrap = abuSelectElement.children('.abu-field-wrap').find('ul.image-selects-images').first(),
@@ -1091,7 +1109,7 @@
   };
 
   // abuIconPicker
-  jQuery.fn.abuIconPicker = function(){
+  $.fn.abuIconPicker = function(){
     return this.each(function() {
       var gthis = $(this),
           sPicker = gthis.find('.abu-icon-picker').first(),
@@ -1158,7 +1176,7 @@
   };
 
   // abuSliders
-  jQuery.fn.abuSliders = function(){
+  $.fn.abuSliders = function(){
     return this.each(function(i) {
 
       var gthis = $(this), abuV,
@@ -1251,12 +1269,17 @@
     });
   };
 
-  jQuery.fn.abuSorter = function(){
+  $.fn.abuSorter = function(){
     return this.each(function() {
       var g = $(this);
       $('.abu-sorters-wrapper', g ).find('.sorter-list').sortable({
         connectWith: '.sorter-list',
         placeholder: 'ui-sorter-placeholder',
+        start(event, ui) {
+          ui.placeholder
+          .width(ui.item.width())
+          .height(ui.item.height());
+        },
         update: function(event, ui) {
           var i = $(this).parents('.abu-sorters-wrapper').attr('abu-sorter-id'),
               n = $(this).attr('abu-name');
@@ -1268,7 +1291,7 @@
     });
   };
 
-  jQuery.fn.abuSortable = function(){
+  $.fn.abuSortable = function(){
     return this.each(function() {      
       var gt = $(this),
           asw = gt.find('.abu-sortables-wrapper');
@@ -1286,7 +1309,7 @@
     });
   };
 
-  jQuery.fn.abuDatepicker = function(){
+  $.fn.abuDatepicker = function(){
     return this.each(function(i) {
       var g = $(this), abuS, abuFrom, abuTo,
           abuW = g.find('.abu-datepicker-wrapper'),
@@ -1322,7 +1345,7 @@
   };
 
 
-  jQuery.fn.abuImageSelect = function(options) {
+  $.fn.abuImageSelect = function(options) {
     return this.each(function() {
           var g = $(this), abuC, chosenoptions,
              abuIsM = g.hasAttr('multiple'),
@@ -1503,7 +1526,7 @@
 
       });
   };
-  jQuery.fn.abuSelect = function(){
+  $.fn.abuSelect = function(){
     return this.each(function(i) {
       var g = $(this),
           selectWrap = $('.abu-select-wrapper', g),
@@ -1519,12 +1542,12 @@
     });
   };
 
-  jQuery.fn.abuGroupButton = function(){
+  $.fn.abuGroupButton = function(){
     return this.each(function(i) {
       var g = $(this),
           abuW = $('.abu-field-wrap', g).first(),
           abuBW = $('.abu-buttongroup-wrapper', abuW);
-
+          
           $('input', abuBW).checkboxradio({
             icon: false,
             classes: {
@@ -1546,7 +1569,7 @@
     });
   };
 
-  jQuery.fn.abuImageUpload = function(options){
+  $.fn.abuImageUpload = function(options){
     return this.each(function() {
       var g = $(this), s,
           gfw = $( '.abu-field-wrap', g).first(),
@@ -1579,7 +1602,7 @@
     })
   };
 
-  jQuery.fn.abuSpinners = function(options){
+  $.fn.abuSpinners = function(options){
     return this.each(function() {
       var abuG = $(this),
           abuW = abuG.find('.abu-field-wrap').first(),
@@ -1601,7 +1624,7 @@
   };
 
 
-  jQuery.fn.abuAccordion = function () {
+  $.fn.abuAccordion = function () {
     return this.each(function () {
       var t = $(this),
         accordion = $('h4.abu-accordion-title', t);
@@ -1643,7 +1666,7 @@
     });
   };
 
-  jQuery.fn.abuTabs = function () {
+  $.fn.abuTabs = function () {
     return this.each(function () {
       var t = $(this),
         tab = $('a.abu-tab-title', t);
@@ -1689,34 +1712,22 @@
       var outputs = '',
           all_inputs = '<div class="abu-all-inputs">',
           prev = '<div class="abu-upload-previewer">';
-            prev += '<a class="abu-upload-remover"><i class="fa fa-times"></i></a>';
-            prev += '<img src="' + ele.url + '" class="abu-prev" alt="' + ele.alt + '" title="' + ele.title + '">';
+            prev += '<a class="abu-previewer-helper abu-upload-remover"><i class="fa fa-times"></i></a>';
+            prev += ( option.multiple === false ) ? '' : '<a class="abu-previewer-helper abu-upload-coper"><i class="fas fa-copy"></i></a>' ;
+            prev += '<img src="' + ele.sizes.thumbnail.url + '" class="abu-prev" alt="' + ele.alt + '" title="' + ele.title + '">';
           prev += '</div>';
 
-        if( ! is_single ) {
-          $.each( ele, function ( key, value ) { 
-            all_inputs += '<input type="text"';
-            all_inputs += ' name="' + option.name + '[' + key + ']' + '"';
-            all_inputs += ' depend-id="' + option.name + '_' + key + '"';
-            all_inputs += " value='" + value + "'";
-            all_inputs += '>';
-          });
-          all_inputs += '</div>';
-        } else {
           all_inputs += '<input type="text"';
-          all_inputs += ' name="' + option.name + '[]' + '"';
+          all_inputs += ' name="' + option.name + ( option.multiple ? '[]' : '' ) + '"';
           all_inputs += " value='" + JSON.stringify(ele) + "'";
           all_inputs += '>'; 
-        }
 
       all_inputs += '</div>';
 
       outputs += prev + all_inputs;    
 
       if (selector.length !== 0) {
-        if ( option.multiple === false ) {
-          selector.html('');
-        }
+        if ( option.multiple === false ) selector.html('');
         $('<div/>', {
           class: 'abu-upload-input ui-sortable-handle',
           html: outputs
@@ -1732,7 +1743,7 @@
 
   };
 
-  jQuery.fn.abuUpload = function () {
+  $.fn.abuUpload = function () {
     return this.each(function () {
       var t   = $(this),
           wpr = $('.abu-upload-wrapper', t),
@@ -1740,9 +1751,33 @@
           inputs = ubtn.prev('div.abu-upload-inputs'), 
           uplaod_button = ubtn.children('a.abu-upload-btn'),
           options = uplaod_button.data('uploaderoptions');
+      
           
-          
-      $('a.abu-upload-remover', wpr).abuRemover( '.abu-upload-input', ubtn.children('a.abu-upload-btn') );
+      wpr.on('click', 'a.abu-upload-remover', function () {
+        var l = $(this),
+          el = l.closest('.abu-upload-input');
+        el.remove();
+        $('.abu-upload-inputs', wpr).attr('data-abu-inputs', $('.abu-upload-inputs', wpr).children().size());
+        return;
+      });
+      if (options.multiple === true) {
+        inputs.sortable({
+          placeholder: 'abu-upload-input ui-sortable-placeholder',
+          update: function (event, ui) {
+            ui.item.css('cursor', '');
+          },
+          start: function (e, ui) {
+            ui.item.css('cursor', 'move');
+          }
+        });
+        wpr.on('click', 'a.abu-upload-coper', function () {
+          var l = $(this),
+            el = l.closest('.abu-upload-input');
+          el.after(el.clone());
+          $('.abu-upload-inputs', wpr).attr('data-abu-inputs', $('.abu-upload-inputs', wpr).children().size());
+          return;
+        });
+      }
 
       uplaod_button.on( 'click', function(e){
         e.preventDefault();
@@ -1753,28 +1788,21 @@
         .on('select', function () {
           var media = abu_uploader.state().get('selection').toJSON(),
             uploaded = ABUFRAMEWORK.fn.uploadinputs(uploaderoptions, media, inputs, uploaderoptions.multiple, l );
+            $('.abu-upload-inputs', wpr).attr('data-abu-inputs', $('.abu-upload-inputs', wpr).children().size() );
             return true;
         });
 
       });
       
-
-      if ( options.multiple === true ) {
-        inputs.sortable({
-          placeholder: 'abu-upload-input ui-sortable-placeholder',
-          update: function (event, ui) {
-            ui.item.css('cursor', '');
-          },
-          start: function (e, ui) {
-            ui.item.css('cursor', 'move');
-          }
-        });
-      }
+      $('.abu-removeall-btn', ubtn).on( 'click', function(){
+        var inp = $('.abu-upload-inputs', wpr).attr('data-abu-inputs', 0).children();
+        inp.fadeOut(400, () => inp.remove() );
+      });
 
     });
   };
 
-  jQuery.fn.abubackup = function (options) {
+  $.fn.abubackup = function (options) {
     return this.each(function () {
       var t = $(this),
           // wp = window.wp,
@@ -1823,14 +1851,27 @@
     });
   };
 
-  jQuery.fn.abuCodeEditor = function (options) {
+  $.fn.abuCodeEditor = function () {
     return this.each(function () {
-      var t = $(this);
 
+      var t = $(this),
+        wpr = $('.abu-code-editor-wrapper',t),
+          txta = wpr.children('textarea'),
+          tdata = txta.data('editor'),
+          editor = ( wp.codeEditor.defaultSettings ? _.clone(wp.codeEditor.defaultSettings) : {} );
+          editor.codemirror = $.extend({}, editor.codemirror, tdata);
+
+      console.log(editor);
+      editor = wp.codeEditor.initialize(txta, editor);
+      editor.codemirror.on('change',function( a, b ){
+        txta.val(editor.codemirror.getValue()).trigger('change');
+      });
+      console.log(editor);
+      
     });
   };
 
-  jQuery.fn.abuNestables = function (options) {
+  $.fn.abuNestables = function (options) {
     return this.each(function () {
       var t = $(this),
           c = '.abu-field-nestable',
@@ -1887,7 +1928,7 @@
                       case 'number':
                       case 'tel':
                       case 'email':
-                        jQuery(this).val('');
+                        $(this).val('');
                         break;
                       case 'checkbox':
                       case 'radio':
@@ -2053,16 +2094,42 @@
     });
   };
 
+  $.fn.abuAnimate = function () {
+    return this.each(function () {
+      
+      var t = $(this),
+          clss = 'abu-animate-title',
+          ctrl = $('.abu-animate-controls', t),
+          hlpr = $('.abu-animate-helper', ctrl),
+          spd  = $('.abu-animate-speed', ctrl),
+          ttl  = $('.abu-animate-title', t);
 
-  jQuery.fn.abuFrameworkInit = function() {
+      hlpr.add(spd).on( 'input change', function(){
+        var l = $(this);
+        $(ttl).removeClass().addClass(clss + ' animated ' + spd.val() + ' ' + hlpr.val() ).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+          $(this).removeClass().addClass(clss);
+        });
+      }).trigger('input');
+
+    });
+  };
+  
+
+  $.fn.abuFrameworkInit = function() {
     return this.each(function() {
 
       var l = $(this);
+      $('[abu-add-element-class]', l).each(function () {
+        $(this).closest('.abu-element').addClass($(this).attr('abu-add-element-class'));
+        $(this).removeAttr('abu-add-element-class');
+      }).delay(1000);
+      
       
       $('.abu-field-nestable, .abu-field-nestables', l).abuNestables();
       $('.abu-field-accordion', l).abuAccordion();
       $('.abu-field-tabs', l).abuTabs();
       $('.abu-field-backup', l).abubackup();
+      $('.abu-field-animate', l).abuAnimate();
       $('.abu-field-select', l).abuSelect();
       $('.abu-field-spinner', l).abuSpinners();
       $('.abu-field-sortable', l).abuSortable();
@@ -2090,16 +2157,12 @@
         l.closest('.abu-options-framework').abuTotallySearch();
       }
   
-      $(this).on('scroll', function(){
-        $(this).abuScrollerFunctions();
-      });
-  
       // normal functions
       $('.abu-field-number').abuInputsVal('numbers');
     });
   }
 
-  jQuery.fn.abuOption = function (options) {
+  $.fn.abuOption = function (options) {
     return this.each(function () {
       var t = $(this), sticky,
           navbar = $('.abu-options-head').first();
@@ -2117,7 +2180,7 @@
     });
   };
 
-  jQuery.fn.abuTabsOn = function (options) {
+  $.fn.abuTabsOn = function (options) {
     return this.each(function () {
 
       var t = $(this);
@@ -2140,21 +2203,15 @@
   };
 
 
-
-  // jQuery Document Ready
+  // $ Document Ready
   $(document).ready( function() {
-
-    $('[abu-add-element-class]').each(function () {
-      $(this).closest('.abu-element').addClass($(this).attr('abu-add-element-class'));
-      $(this).removeAttr('abu-add-element-class');
-    }).delay(1000);
 
     var $this = $(this);
 
     $this.abuFrameworkInit();
     $( '.abu-options-framework', $this )
       .abuOption()
-      .abuAjax()
+      .abuAjaxSave()
       .abuFrameworkTabSecionToggles();
     
 

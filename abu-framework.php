@@ -13,10 +13,10 @@
  * 
  * 
  * Plugin Name: AbuFramework
- * Plugin URI: https://github.com/yourabusufiyan/abuframework/
- * Author: Abu Sufiyan
- * Author URI: http://abusufiyan.com/
- * Version: 1.0.0
+ * Plugin URI:  https://github.com/yourabusufiyan/abuframework/
+ * Author:      Abu Sufiyan
+ * Author URI:  http://abusufiyan.com/
+ * Version:     1.0.3
  * Description: AbuFramework is Options Framework for WordPress themes and plugins.
  * Text Domain: AbuFramework
  * Domain Path: /languages
@@ -45,14 +45,12 @@
  */
 
 
-
-
 // This file very must be required.
 require_once ( dirname( __FILE__ ) . '/required-functions.php' );
 
 // Abu Framework Version
-defined( 'ABU_MIN' ) or define( 'ABU_MIN', ( WP_DEBUG ? '' : '.min' ) );
-defined( 'ABU_VER' ) or define( 'ABU_VER', '1.0.0' );
+defined( 'ABU_MIN' )    or define( 'ABU_MIN', ( WP_DEBUG ? '' : '.min' ) );
+defined( 'ABU_VER' )    or define( 'ABU_VER', '1.0.1' );
 defined( 'ABU_PREFIX' ) or define( 'ABU_PREFIX', 'abu_options_' );
 
 // Abu Framework dir
@@ -69,10 +67,15 @@ defined('ABU_JSON')     or define('ABU_JSON',    abu_dir( ABU_DIR . 'assets/json
 defined('ABU_FUNC')     or define('ABU_FUNC',    abu_dir( ABU_DIR . 'functions/'));
 defined('ABU_CLASSES')  or define('ABU_CLASSES', abu_dir( ABU_DIR . 'classes/'));
 defined('ABU_FIELDS')   or define('ABU_FIELDS',  abu_dir( ABU_DIR . 'fields/'));
+defined('ABU_CORE')     or define('ABU_CORE',    abu_dir( ABU_DIR . 'core/'));
 
 // Init AbuFramework
 abu_load_template('afw.class', ABU_CLASSES);
 
 
-// Samples
-abu_load_template( 'sample/sample', ABU_DIR );
+if( abu_ekey( 'AbuFrameworkDemo', get_option( 'AbuFrameworkOwn', [] ), 'no' ) === 'yes' ) {
+
+    // Load Samples
+    abu_load_template( 'sample/sample', ABU_DIR );
+
+}

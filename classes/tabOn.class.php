@@ -14,6 +14,7 @@
 if( class_exists( 'abuTabOn' ) ) return;
 
 class abuTabOn extends abuWPOptions {
+    
     public $_id = '';
     
     final public static function create( $args, $tabs ) {

@@ -24,7 +24,7 @@ class abuWPOptions extends abuFramework {
   public static $instance = 0;
 
 
-  public function __construct( $settings = [], $sections = [] ) {                                
+  public function __construct( $settings = [], $sections = [] ) {
     
 
     if( abu_iekey( 'framework_id', $settings ) ) {
@@ -134,7 +134,7 @@ class abuWPOptions extends abuFramework {
         if( ! isset($field['id']) ) continue;
         $values[$field['id']] = abu_ekey( ['default', 'value'], $field, '' );
       }
-      abu_set_options( $this->settings, $values, true );
+      $done_data = abu_sanitization_validation_escaping( $values, $this->fields );
 
     } elseif( !empty( $action['reset_section'] ) ) {
       
@@ -203,26 +203,24 @@ class abuWPOptions extends abuFramework {
       remove_submenu_page( $menu_slug, $menu_slug );
 
     }
-
     add_action( "load-{$menu_page}", array( &$this, 'pageLoad' ) );
 
   }
 
-  public function pageLoad() {
+  public function pageLoad( $v ) {
     add_filter( 'admin_footer_text', array( &$this, 'admin_footer_text' ) );
   }
 
   public function abuWPOptionsPage() {
 
      $settings = $this->settings;
-     $values   = abu_set_options( $settings, [], false, true );
 
      if ( isset( $_GET['settings-updated'] ) ) {
        add_settings_error( $settings['framework_id'], $settings['framework_id'], __( 'Settings Saved', 'AbuFramework' ), 'updated' );
      }
 
      echo '<div class="wrap"><h1></h1>';
-       echo ( get_called_class() )::abuOptionsRenders( $settings, $this->sections, $values );
+       echo ( get_called_class() )::abuOptionsRenders( $settings, $this->sections, $this->saved_value );
      echo '</div>';
 
   }
@@ -240,7 +238,7 @@ class abuWPOptions extends abuFramework {
       'version'         => 'v1.0.0',
       
       'copyright'       => sprintf( 
-        __('Abu Framework by %sAbu Sufiyan', 'AbuFramework'),
+        __('Abu Framework by %sAbu Sufiyan%s', 'AbuFramework'),
         '<a href="http://abusufiyan.com/?ref=abuframework" target="_blank"><small>',
         '</small></a>'
       ),
@@ -290,9 +288,10 @@ class abuWPOptions extends abuFramework {
 
     ]);
     $secs    = abu_sections_sort( $secs );
-    $errors  = abu_ekey( '__errors', $setting, [] );
+    $errors  = (array) abu_ekey( '__errors', $setting, [] );
 
     extract( $setting );
+     
     $keys = 1;
     $options = &$save_values;
 
@@ -359,7 +358,7 @@ class abuWPOptions extends abuFramework {
             if( ! is_null( $secs ) ) {
               foreach ($secs as $sec) {
               
-              $o .= '<li class="abu-tablinks parent-section ' . ( isset($sec['active']) ? 'opened' : '' ) . ( isset( $sec['sub-section'] ) ? ' has-sub' : '' ) . ( $sec['empty'] ? ' empty-section' : '' ) . '" abu-section="' . esc_attr( $keys ) . '"';
+              $o .= '<li class="abu-tablinks abu-section-tab parent-section ' . ( isset($sec['active']) ? 'opened' : '' ) . ( isset( $sec['sub-section'] ) ? ' has-sub' : '' ) . ( $sec['empty'] ? ' empty-section' : '' ) . '" abu-section="' . esc_attr( $keys ) . '"';
 
               $o .= 'data-is-empty="' . ( $sec['empty'] ? 'true' : 'false' ) . '" data-fields="' . esc_attr( count( abu_ekey('fields', $sec, []) ) )  .  '" abu-section-id="' . esc_attr( $sec['id'] ) . '"' . abu_depend_helper( $sec ) . '>';
                   $o .= '<a href="#section=' . esc_attr( $sec['id'] ) . '">';
@@ -380,17 +379,17 @@ class abuWPOptions extends abuFramework {
                   $o .= '</span>';
 
                   if( abu_iekey( 'sub-section', $sec) && is_array( $sec['sub-section'] ) && count( $sec['sub-section'] )  ) {
+
                     $o .= '<span class="abu-section-nav-toggle">';
                       $o .= '<i class="fas fa-plus"></i> <i class="fas fa-minus"></i>';
                     $o .= '</span>';
-                  }
                   $o .= '</a>';
-                  if( abu_iekey( 'sub-section', $sec ) && is_array( $sec['sub-section'] ) && count( $sec['sub-section'] ) ) {
+                  
                     $o .= '<ul class="sub-menus">';
                       foreach ($sec['sub-section'] as $ssec) {
                         $keys++;
-                        $o .=  '<li abu-section="' . esc_attr( $keys ) . '" data-is-empty="' . ( $sec['empty'] ? 'true' : 'false' ) . '" data-fields="' . count( abu_ekey('fields', $ssec, []) )  
-                           .  '" class="child-section" abu-section-id="' . esc_attr( $ssec['id'] ) . '"' . abu_depend_helper( $ssec ) . '>';
+                        $o .=  '<li class="abu-section-tab child-section" abu-section="' . esc_attr( $keys ) . '" data-is-empty="' . ( $sec['empty'] ? 'true' : 'false' ) . '" data-fields="' . count( abu_ekey('fields', $ssec, []) )  
+                           .  '" abu-section-id="' . esc_attr( $ssec['id'] ) . '"' . abu_depend_helper( $ssec ) . '>';
                         $o .=  '<a href="#section=' . esc_attr( $ssec['id'] ) . '">';
                           if( abu_iekey( 'icon',  $ssec) ) {
                             $o .= '<span class="abu-section-nav-icon"><i class="' . abu_ekey( 'icon', $ssec ) . '"></i></span>';
@@ -399,6 +398,9 @@ class abuWPOptions extends abuFramework {
                       }
                       $o .= '</a></li>';
                     $o .= '</ul>';
+
+                  } else {
+                    $o .= '</a>';
                   }
               $o .= '</li>';
               $keys++;

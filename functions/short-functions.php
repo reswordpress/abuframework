@@ -408,7 +408,7 @@ if ( ! function_exists( 'abu_get_options' ) ) {
 if ( ! function_exists( 'abu_set_options' ) ) {
    function abu_set_options( $args, $values = [], $all_reset = false, $get = false ) {
 
-      if( ! isset($args['framework_id']) || ! isset($args['database']) || empty( $values ) && ! $get ) return;
+      if( ! isset($args['framework_id']) || empty( $values ) && ! $get ) return;
 
       $db = $args['database'];
       $id = $args['framework_id'];
@@ -418,31 +418,31 @@ if ( ! function_exists( 'abu_set_options' ) ) {
 
          $all_reset = $all_reset ? [] : get_theme_mod( $id, [] );
          if( $get ) return $all_reset;
-         $values = array_merge( $all_reset, $values );
+         $values = is_array( $values ) ? array_merge( $all_reset, $values ) : $values;
          $o = set_theme_mod( $id, $values );
 
       } else if( $db === 'transient' ) {
 
          $all_reset = $all_reset ? [] : get_transient( $id, [] );
          if( $get ) return $all_reset;
-         $values = array_merge( $all_reset, $values );
+         $values = is_array( $values ) ? array_merge( $all_reset, $values ) : $values;
          $o = set_transient( $id, $values, $args['transient_expiration'] );
 
       } else if( $db === 'network' ) {
 
          $all_reset = $all_reset ? [] : get_site_option( $id, [] );
          if( $get ) return $all_reset;
-         $values = array_merge( $all_reset, $values );
+         $values = is_array( $values ) ? array_merge( $all_reset, $values ) : $values;
          $o = update_site_option(  $id, $values );
 
       } else {
          $all_reset = $all_reset ? [] : get_option( $id, [] );
          if( $get ) return $all_reset;
-         $values = array_merge( $all_reset, $values );
+         $values = is_array( $values ) ? array_merge( $all_reset, $values ) : $values;
          $o = update_option( $id, $values );
       }
 
-      return $o;
+      return $values;
  
    }
 }

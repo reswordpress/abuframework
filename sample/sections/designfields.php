@@ -2,14 +2,27 @@
 
 // Design Fields
 AFW::createSection( 'abuWPOption', [
-    'id'     => 'designfields',
-    'title'  =>  'Design Fields', 
-    'icon'   => 'far fa-object-group',
-    'priority'=> 3,
+  'id'     => 'designfields',
+  'title'  =>  'Design Fields', 
+  'icon'   => 'far fa-object-group',
+  'priority'=> 3,
+  'fields' => [
+    [ 'title' => 'Animate', 'type' => 'animate', 'id' => 'animate', ],
+    [ 'title'=> 'Border', 'subtitle' => 'subtitle', 'type' => 'border', 'id' => 'border' ],
+    [ 'title' => 'Dimensions', 'type' => 'dimensions', 'id' => 'dimensions'  ],
+    [ 'title' => 'Spacing', 'type' => 'spacing', 'id' => 'spacing', ],
+  ]
+]);
+
+  // Text Fields section
+  AFW::createSection( 'abuWPOption', [
+    'id'     => 'animatefields',
+    'parent' => 'designfields',
+    'title'  =>  'Animate', 
     'fields' => [
-      [ 'title'=> 'Border', 'subtitle' => 'subtitle', 'type' => 'border', 'id' => 'border' ],
-      [ 'title' => 'Dimensions', 'type' => 'dimensions', 'id' => 'dimensions'  ],
-      [ 'title' => 'Spacing', 'type' => 'Space', 'id' => 'spacing', ],
+      [ 'title' => 'Animate', 'type' => 'animate', 'id' => 'animate' ],
+      [ 'title' => 'Animate with Default', 'type' => 'animate', 'id' => 'animate_with_deafult', 'default' => [ 'effect' => 'shake', 'speed' => 'delay-1s' ] ],
+      [ 'title' => 'Animate without Speed', 'type' => 'animate', 'id' => 'animate_without_speed', 'speed' => false  ],
     ]
   ]);
   

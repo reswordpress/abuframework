@@ -25,11 +25,11 @@ abstract class AbuFrameworkFields extends abuFramework {
 
   protected $_id;
 
-  public function __construct( $f = [], $v = '', $extra = [], $_id = '', $place = '' ) {
+  public function __construct( &$f = [], $v = '', $extra = [], $_id = '', $place = '' ) {
 
       $this->v         = $v;
       $f['field_only'] = false;
-      $this->f    = $this->extra = ( is_array( $extra ) && count( $extra ) ? abu_field_extra( $f, $extra ) : $f ) ;
+      $this->f = $f = $this->extra = ( is_array( $extra ) && count( $extra ) ? abu_field_extra( $f, $extra ) : $f ) ;
       $this->_id  = $_id;
 
   }
@@ -145,14 +145,13 @@ abstract class AbuFrameworkFields extends abuFramework {
     return ' abu-depend-id="' . esc_attr( ( empty( $ID ) ? abu_ekey( 'depend_id', $this->f, $this->id_tattv() ) : $ID  ) . $add ) . '"';
   }
 
-  protected function class_tattv( $tag = true, $class = '' ) {
+  protected function class_tattv( $tag = true, $class = [] ) {
 
     $o = isset($this->f['class']) ? abu_array_str( $this->f['class'] ) : '';
 
     if( ! empty( $class ) ) $o .=  ' ' . abu_array_str( $class );
-
-    if( $tag && !empty( $o ) ) $o = ' class="' . esc_attr( $o ) . '" ';
-
+    
+    if( $tag && !empty( $o ) ) $o .= ' class="' . esc_attr( $o ) . '" ';
     return trim( $o );
 
   }
@@ -173,6 +172,7 @@ abstract class AbuFrameworkFields extends abuFramework {
     if( ! empty( $fattr ) ) {
       if( is_array( $fattr ) ) {
           foreach ( $fattr as $key => $value) {
+            if( $key == 'class' ){ continue; }
             if( $value == 'key-only' ) {
               $o .= ' ' . esc_attr( $key ) . ' ';
               continue;
@@ -185,6 +185,7 @@ abstract class AbuFrameworkFields extends abuFramework {
     if( is_array( $attrs ) ) {
         foreach ( $attrs as $key => $value) {
           if( in_array( $key, $fattr ) ) continue;
+          if( $key == 'class' ){ continue; }
           if( $value == 'key-only' ) {
             $o .= ' ' . esc_attr( $key ) . ' ';
             continue;

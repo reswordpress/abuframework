@@ -44,8 +44,8 @@ AFW::createSection( 'abuWPOption', [
     [ 'title' => 'Range Slider', 'type' => 'range_slider', 'id' => 'simplerangeslider1' ],
     [ 'title' => 'Range Slider with default', 'type' => 'range_slider', 'id' => 'rangeslider_with_default', 'default' => [ 'min' => 30, 'max' => 70  ] ],
     [ 'title' => 'Range Slider with step(10)', 'type' => 'range_slider', 'id' => 'rangeslider_with_step', 'step' => 10 ],
-    [ 'title' => 'Range Slider MIN,MAX', 'type' => 'range_slider', 'id' => 'slider_minmax', 'min' => 40, 'max' => 80 ],
-    [ 'title' => 'Range Slider MIN,MAX with default', 'min' => 40, 'max' => 80,  'type' => 'range_slider', 'id' => 'slider_minmax_with_default', 'default' => [ 'min' => 60, 'max' => 70  ] ],
+    [ 'title' => 'Range Slider MIN,MAX', 'type' => 'range_slider', 'id' => 'rangeslider_minmax', 'min' => 40, 'max' => 80 ],
+    [ 'title' => 'Range Slider MIN,MAX with default', 'min' => 40, 'max' => 80,  'type' => 'range_slider', 'id' => 'rangeslider_minmax_with_default', 'default' => [ 'min' => 60, 'max' => 70  ] ],
   ]
 ]);
 

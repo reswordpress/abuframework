@@ -8,7 +8,6 @@ AFW::createSection( 'abuWPOption', [
   'priority'=> 10,
   'fields' => [
     [ 'title'=> 'WP Editor', 'type' => 'wp_editor', 'id' => 'wp_editor' ],
-    [ 'title'=> 'Code Editor', 'subtitle' => 'subtitle', 'type' => 'code_editor', 'id' => 'code-editor' ],
   ]
 ]);
   

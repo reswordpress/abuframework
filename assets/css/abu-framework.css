@@ -10,14 +10,6 @@
  * @copyright 2020 Abu Sufiyan <abusufiyan@muslim.com>
  *
  */
-
-.savebotton {
-  background: #46b450;
-  border-color: #42a94b #3fa248 #3fa248;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #3fa248, 1px 0 1px #3fa248, 0 1px 1px #3fa248, -1px 0 1px #3fa248;
-}
 * {
   box-sizing: border-box;
 }
@@ -54,22 +46,22 @@
   border-bottom: 1px solid #cecece;
 }
 .abu-options-head {
-  background-color: black;
+  background-color: #080808;
   color: white;
   margin: 0;
   padding: 26px 30px;
   display: flex;
   justify-content: space-between;
   border-bottom: 2px solid #0073aa;
+  transition: all 0.15s ease-in-out;
 }
 .abu-options-head.abu-sticky-head {
   position: sticky;
   top: 32px;
-  z-index: 9999;
+  z-index: 999;
   width: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
-  transition: all 0.15s ease-in-out;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.79);
 }
 .abu-options-head .abu-main-title {
@@ -79,47 +71,14 @@
   position: relative;
   text-align: right;
 }
+.abu-options-head .abu-option-buttons .abu-reset-botton {
+  margin-left: 5px;
+}
 .abu-options-head .abu-option-buttons .abu-spinner {
   filter: invert(200%);
   margin-right: 5px;
   vertical-align: -webkit-baseline-middle;
   float: unset;
-}
-.abu-options-head .abu-option-buttons .abu-botton {
-  text-align: center;
-  margin: 0;
-  padding: 0 15px;
-  outline: 0;
-  border: none;
-  display: inline;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: background 0.2s ease;
-  border-radius: 2px;
-  margin: 0 5px;
-}
-.abu-options-head .abu-option-buttons .abu-botton[disabled] {
-  cursor: not-allowed;
-}
-.abu-options-head .abu-option-buttons .abu-botton.abu-reset-botton {
-  background: #e85248;
-}
-.abu-options-head .abu-option-buttons .abu-botton.abu-reset-botton:hover {
-  background: #e6453a;
-  color: #fafafa;
-}
-.abu-options-head .abu-option-buttons .abu-botton.abu-save-botton {
-  background: #46b450;
-  border-color: #42a94b #3fa248 #3fa248;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #3fa248, 1px 0 1px #3fa248, 0 1px 1px #3fa248, -1px 0 1px #3fa248;
-}
-.abu-options-head .abu-option-buttons .abu-botton.abu-save-botton:hover {
-  background: #42a94b;
-  color: #fafafa;
 }
 .abu-options-head h1 {
   padding: 0;
@@ -379,6 +338,51 @@
     transform: translate(0, -50%);
   }
 }
+.abu-botton {
+  text-align: center;
+  margin: 0;
+  padding: 0 15px;
+  outline: 0;
+  border: none;
+  display: inline;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s ease;
+  border-radius: 2px;
+  margin: 0 5px;
+}
+.abu-botton[disabled] {
+  cursor: not-allowed;
+}
+.abu-botton.abu-reset-botton {
+  background: #e85248;
+  color: white;
+  border: none;
+}
+.abu-botton.abu-reset-botton:hover {
+  border: none;
+  background: #e6453a;
+  color: #fafafa;
+}
+.abu-botton.abu-save-botton {
+  background: #46b450;
+  border-color: #42a94b #3fa248 #3fa248;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px 1px #3fa248, 1px 0 1px #3fa248, 0 1px 1px #3fa248, -1px 0 1px #3fa248;
+  border: none;
+  min-width: 60px;
+}
+.abu-botton.abu-save-botton:hover {
+  background: #42a94b;
+  color: #fafafa;
+  border: none;
+}
+.abu-botton.abu-error-button {
+  background: #e85248;
+}
 .abu-element.abu-field-text input {
   min-width: 0px;
   width: 350px;
@@ -484,14 +488,6 @@
   width: 100px;
   height: 19px;
 }
-.abu-element.abu-field-select .abu-select-wrapper .search-choice-close {
-  position: absolute;
-  top: 4px;
-  right: 3px;
-  display: block;
-  width: 12px;
-  height: 12px;
-}
 .abu-element.abu-field-select .abu-select-wrapper .ui-sortable-helper,
 .abu-element.abu-field-select .abu-select-wrapper .chosen-choices.ui-sortable > .search-choice {
   cursor: move;
@@ -515,9 +511,20 @@
 .abu-element.abu-field-radio ul li {
   margin-bottom: 7px;
 }
+.abu-element.abu-field-checkbox ul li[disabled="disabled"],
+.abu-element.abu-field-radio ul li[disabled="disabled"] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+.abu-element.abu-field-checkbox ul li[disabled="disabled"] > label,
+.abu-element.abu-field-radio ul li[disabled="disabled"] > label {
+  cursor: not-allowed !important;
+}
 .abu-element.abu-field-checkbox ul li input,
 .abu-element.abu-field-radio ul li input {
   margin: 0 6px;
+  width: 16px !important;
+  height: 16px !important;
 }
 .abu-element.abu-field-checkbox ul.horizontal li,
 .abu-element.abu-field-radio ul.horizontal li {
@@ -861,6 +868,7 @@
   vertical-align: middle;
 }
 .abu-element.abu-field-slider .abu-single-slider-wrap .abu-single-slider .abu-slider {
+  position: relative;
   background: #364350;
   border: 1px solid white;
   border-radius: 30px;
@@ -1687,6 +1695,9 @@
   display: block;
   margin-bottom: 10px;
 }
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs.upload-multiple .abu-upload-input {
+  cursor: move;
+}
 .abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input {
   display: inline-block;
   margin: 5px;
@@ -1706,10 +1717,9 @@
   height: 100%;
   object-fit: cover;
 }
-.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-upload-remover {
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-previewer-helper {
   position: absolute;
   z-index: 1;
-  right: 4px;
   top: 4px;
   font-size: 14px;
   width: 22px;
@@ -1717,27 +1727,47 @@
   line-height: 22px;
   text-align: center;
   text-decoration: none;
-  color: #fff;
-  background-color: #ff5757;
   opacity: 0.6;
   transition: all 0.2s;
+}
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-previewer-helper.abu-upload-remover {
+  right: 4px;
+  color: #fff;
+  background-color: #ff5757;
   cursor: pointer;
 }
-.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-upload-remover:hover {
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-previewer-helper.abu-upload-remover:hover {
   opacity: 1;
   background-color: #e60000;
+}
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-previewer-helper.abu-upload-coper {
+  right: 26px;
+  color: #fff;
+  background-color: #000000;
+  cursor: pointer;
+}
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-upload-previewer .abu-previewer-helper.abu-upload-coper:hover {
+  opacity: 1;
+  background-color: #444;
 }
 .abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input .abu-all-inputs {
   display: none;
 }
 .abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs .abu-upload-input.ui-sortable-placeholder {
+  vertical-align: bottom;
   width: 110px;
   height: 110px;
   border: 1px dashed #f1c40f;
   background-color: #fffae4;
 }
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-inputs[data-abu-inputs="0"] + .abu-upload-buttons > .abu-removeall-btn {
+  display: none;
+}
 .abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-buttons {
   margin: 0 5px;
+}
+.abu-element.abu-field-upload .abu-upload-wrapper .abu-upload-buttons .abu-removeall-btn {
+  margin-left: 10px;
 }
 .abu-element.abu-field-upload.abu-multiples-upload .abu-upload-previewer {
   cursor: move;
@@ -1793,6 +1823,53 @@
 .abu-element.abu-field-nestables .abu-adable-item,
 .abu-element.abu-field-nestables .abu-model {
   display: none;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper {
+  position: relative;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper .abu-animate-title h2 {
+  display: inline-block;
+  color: #2196F3;
+  background-image: linear-gradient(92deg, #2196F3 0%, #FF5722 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hue 30s infinite linear;
+  margin: 0;
+  margin-left: 12%;
+  font-size: 26px;
+  line-height: initial;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper .abu-animate-controls .abu-sub-element {
+  display: inline-block;
+  width: auto;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper .abu-animate-controls .abu-sub-element .abu-sub-title-wrap {
+  display: block;
+  width: 100%;
+  float: none;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper .abu-animate-controls .abu-sub-element .abu-sub-field-wrap {
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  float: none;
+  margin: 0;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper .abu-animate-controls .chosen-container {
+  width: auto;
+  min-width: 150px !important;
+}
+.abu-element.abu-field-animate .abu-animate-wrapper .abu-animate-controls select:not(:last-child) {
+  margin-right: 10px;
+}
+.abu-element.abu-field-code-editor .abu-code-editor-wrapper {
+  position: relative;
+}
+.abu-element.abu-field-code-editor .abu-code-editor-wrapper .CodeMirror-wrap {
+  border: 1px solid #ddd;
 }
 .abu-options-body {
   position: relative;
@@ -1864,6 +1941,7 @@
   background: #191E23;
 }
 .abu-options-body .abu-section-nav-wrap .abu-section-nav .sub-menus .child-section:not(.active) > a:hover {
+  color: #eaeaea;
   background-color: #2d3033;
 }
 .abu-options-body .abu-section-nav-wrap .abu-section-nav .abu-section-nav-error {
@@ -1980,7 +2058,7 @@
 .abu-options-body .abu-section-nav-wrap .abu-section-nav ul li.has-sub > a > span.abu-section-nav-toggle > i {
   position: absolute;
   right: 8%;
-  color: #d9d9d9;
+  color: #a2a2a2;
 }
 .abu-options-body .abu-section-nav-wrap .abu-section-nav ul li.has-sub > a > span.abu-section-nav-toggle > i:hover {
   color: white;
@@ -2107,6 +2185,18 @@
 }
 .abu-options-body.single-section .abu-section-nav-wrap-background {
   display: none;
+}
+.abu-options-footer {
+  background-color: #080808;
+  color: white;
+  margin: 0;
+  padding: 26px 30px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #0073aa;
+  padding: 0 20px;
+  font-size: 14px;
+  display: block;
 }
 .abu-hidden {
   display: none;
@@ -2439,6 +2529,12 @@
     width: 100px;
   }
 }
+.ui-dialog {
+  padding: 0 !important;
+}
+.ui-dialog .ui-dialog-content {
+  width: 100% !important;
+}
 /* Let the "No results match" text fill the whole width. */
 .chosenImage-container .chosen-results .no-results {
   padding-left: inherit;
@@ -2453,91 +2549,6 @@
   to {
     opacity: 1;
   }
-}
-.abu-options-footer {
-  background-color: black;
-  color: white;
-  margin: 0;
-  padding: 26px 30px;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 2px solid #0073aa;
-  padding: 0 20px;
-  font-size: 14px;
-  display: block;
-}
-.abu-options-footer.abu-sticky-head {
-  position: sticky;
-  top: 32px;
-  z-index: 9999;
-  width: 100%;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  transition: all 0.15s ease-in-out;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.79);
-}
-.abu-options-footer .abu-main-title {
-  position: relative;
-}
-.abu-options-footer .abu-option-buttons {
-  position: relative;
-  text-align: right;
-}
-.abu-options-footer .abu-option-buttons .abu-spinner {
-  filter: invert(200%);
-  margin-right: 5px;
-  vertical-align: -webkit-baseline-middle;
-  float: unset;
-}
-.abu-options-footer .abu-option-buttons .abu-botton {
-  text-align: center;
-  margin: 0;
-  padding: 0 15px;
-  outline: 0;
-  border: none;
-  display: inline;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: background 0.2s ease;
-  border-radius: 2px;
-  margin: 0 5px;
-}
-.abu-options-footer .abu-option-buttons .abu-botton[disabled] {
-  cursor: not-allowed;
-}
-.abu-options-footer .abu-option-buttons .abu-botton.abu-reset-botton {
-  background: #e85248;
-}
-.abu-options-footer .abu-option-buttons .abu-botton.abu-reset-botton:hover {
-  background: #e6453a;
-  color: #fafafa;
-}
-.abu-options-footer .abu-option-buttons .abu-botton.abu-save-botton {
-  background: #46b450;
-  border-color: #42a94b #3fa248 #3fa248;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px 1px #3fa248, 1px 0 1px #3fa248, 0 1px 1px #3fa248, -1px 0 1px #3fa248;
-}
-.abu-options-footer .abu-option-buttons .abu-botton.abu-save-botton:hover {
-  background: #42a94b;
-  color: #fafafa;
-}
-.abu-options-footer h1 {
-  padding: 0;
-  display: inline;
-  color: #fff;
-  font-size: 26px;
-  line-height: 26px;
-  font-weight: 500;
-  margin: 0;
-}
-.abu-options-footer h1 small {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 500;
 }
 .a-color-picker-hsl,
 .a-color-picker-rgb,
@@ -2792,44 +2803,79 @@ div[class^="col-content"] {
 .abu-abuTabOn.abuTabs .about-text {
   padding-bottom: 15px;
 }
-.abu-abuTabOn.abuTabs .abu-tab > .abu-element {
+.abu-abuTabOn.abuTabs .abu-tab .abu-element {
   padding: 20px 0;
   padding-right: 30px;
   border: 0;
 }
-.abu-abuTabOn.abuTabs .abu-tab > .abu-element > .abu-title-wrap {
+.abu-abuTabOn.abuTabs .abu-tab .abu-element > .abu-title-wrap {
   width: 20%;
   max-width: 20%;
 }
-.abu-abuTabOn.abuTabs .abu-tab > .abu-element > .abu-title-wrap h4 {
+.abu-abuTabOn.abuTabs .abu-tab .abu-element > .abu-title-wrap h4 {
   color: #23282d;
 }
 @media screen and (max-width: 782px) {
-  .abu-abuTabOn.abuTabs .abu-tab > .abu-element > .abu-title-wrap {
+  .abu-abuTabOn.abuTabs .abu-tab .abu-element > .abu-title-wrap {
     width: 100%;
     float: none;
     margin-bottom: 10px;
   }
 }
-.abu-abuTabOn.abuTabs .abu-tab > .abu-element > .abu-field-wrap {
+.abu-abuTabOn.abuTabs .abu-tab .abu-element > .abu-field-wrap {
   margin-left: 20%;
   width: 80%;
   max-width: 80%;
 }
 @media screen and (max-width: 782px) {
-  .abu-abuTabOn.abuTabs .abu-tab > .abu-element > .abu-field-wrap {
+  .abu-abuTabOn.abuTabs .abu-tab .abu-element > .abu-field-wrap {
     float: none;
     margin-left: 0;
     width: 100%;
     max-width: 100%;
   }
 }
-.abu-abuTabOn.abuTabs .abu-tab > .abu-element > .abu-abuTabOn.abuTabs .abu-tab > .abu-element:last-child {
+.abu-abuTabOn.abuTabs .abu-tab .abu-element > .abu-abuTabOn.abuTabs .abu-tab .abu-element:last-child {
   padding-bottom: 0;
 }
 .abu-abuTabOn.abuTabs .tab-wrapper > .abu-save-botton {
   display: block;
   margin: 30px 0;
+}
+.abu-element.abu-wp-page {
+  padding: 20px 0;
+  padding-right: 30px;
+  border: 0;
+}
+.abu-element.abu-wp-page > .abu-title-wrap {
+  width: 20%;
+  max-width: 20%;
+}
+.abu-element.abu-wp-page > .abu-title-wrap h4 {
+  color: #23282d;
+}
+@media screen and (max-width: 782px) {
+  .abu-element.abu-wp-page > .abu-title-wrap {
+    width: 100%;
+    float: none;
+    margin-bottom: 10px;
+  }
+}
+.abu-element.abu-wp-page > .abu-field-wrap {
+  margin-left: 20%;
+  width: 80%;
+  max-width: 80%;
+}
+@media screen and (max-width: 782px) {
+  .abu-element.abu-wp-page > .abu-field-wrap {
+    float: none;
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+.abu-element.abu-wp-page > .abu-element.abu-wp-page:last-child {
+  padding-bottom: 0;
 }
 .mdtoast {
   right: 24px;

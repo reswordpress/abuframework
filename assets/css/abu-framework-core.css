@@ -1,0 +1,63 @@
+/**
+ * AbuFramework Core CSS File from AbuFramework
+ * @since 1.0.0
+ * @version 1.0.0
+ *
+ * AbuFramework - AbuFramework is Options Framework for WordPress themes and plugins.
+ * @author    Abu Sufiyan <abusufiyan@muslim.com>
+ * @link      http://abusufiyan.com/?ref=abuframework
+ * @copyright 2020 Abu Sufiyan <abusufiyan@muslim.com>
+ *
+ */
+.abu-about-wrap {
+  max-width: 100%;
+}
+.abu-extension {
+  padding: 30px 0;
+  width: 100%;
+  position: relative;
+}
+.abu-extension * {
+  box-sizing: border-box;
+}
+.abu-extension .abu-single-extension {
+  float: left;
+  width: 50%;
+  margin-bottom: 30px;
+  height: 162px;
+  max-height: 162px;
+}
+.abu-extension .abu-single-extension:nth-child( odd ) {
+  padding-right: 20px;
+}
+.abu-extension .abu-single-extension .extension-inner {
+  background-color: #ffffff;
+  border: 1px solid #dedede;
+  display: flex;
+  padding: 20px;
+}
+.abu-extension .abu-single-extension .extension-inner .extension-image img {
+  width: 127px;
+  height: 127px;
+}
+.abu-extension .abu-single-extension .extension-inner .extension-content {
+  position: relative;
+  margin-left: 20px;
+  width: calc(100% - 120px);
+}
+.abu-extension .abu-single-extension .extension-inner .extension-content .extension-title {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.abu-extension .abu-single-extension .extension-inner .extension-content .activation-buttons {
+  position: absolute;
+  top: 0px;
+  right: 0;
+}
+.abu-extension .abu-single-extension .extension-inner .extension-content .extension-desc {
+  font-size: 13px;
+  display: block;
+  line-height: 1.5;
+  margin: 1em 0;
+}

@@ -21,6 +21,49 @@ AFW::createSection( 'abuWPOption', [
         [ 'title' => 'Color Picker', 'id' => 'second_post', 'type' => 'color_picker' ],
     ] ],
 
+    [ 'title' => 'Accordion', 'subtitle' => 'subtitle', 'type' => 'accordion', 'id' => 'simaccordions', 'accordions' => [
+      [ 'title'  => 'First',
+        'fields' => [
+        [ 'title'=> 'Text', 'subtitle' => 'subtitle', 'type' => 'text', 'id' => 'text', 'placeholder' => 'This is placeholder'],
+        [ 'title' => 'Checkboxs', 'id' => 'checkbox', 'type' => 'checkbox', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four' ] ],
+        [ 'title' => 'Link Color  with AF color Picker', 'type' => 'link_color', 'id' => 'aflink_color_with_afp', 'wp-picker' => false ],
+      ]],
+      [ 'title' => 'Second',
+        'fields' => [
+        [ 'title'=> 'Text', 'subtitle' => 'subtitle', 'type' => 'text', 'id' => 'text', 'placeholder' => 'This is placeholder'],
+        [ 'title' => 'Checkboxs', 'id' => 'checkbox', 'type' => 'checkbox', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four' ] ],
+        [ 'title' => 'Link Color  with AF color Picker', 'type' => 'link_color', 'id' => 'aflink_color_with_afp', 'wp-picker' => false ],
+      ]],
+    ]],
+
+    [ 'title' => 'Fieldset', 'subtitle' => 'subtitle', 'type' => 'fieldset', 'id' => 'aimfieldset', 'fields' => [
+        [ 'title'=> 'Text', 'subtitle' => 'subtitle', 'type' => 'text', 'id' => 'text', 'placeholder' => 'This is placeholder'],
+        [ 'title' => 'Checkboxs', 'id' => 'checkbox', 'type' => 'checkbox', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four' ] ],
+        [ 'title' => 'Link Color  with AF color Picker', 'type' => 'link_color', 'id' => 'aflink_color_with_afp', 'wp-picker' => false ],
+    ]],
+    [ 'title' => 'Fieldset with Default', 'subtitle' => 'subtitle', 'type' => 'fieldset', 'id' => 'fieldset-with-default', 'fields' => [
+        [ 'title'=> 'Text', 'subtitle' => 'subtitle', 'type' => 'text', 'id' => 'text', 'default' => 'This is default value.'],
+        [ 'title' => 'Checkboxs', 'id' => 'checkbox', 'type' => 'checkbox', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four' ], 'default' => ['one', 'three'] ],
+        [ 'title' => 'Link Color with AF color Picker', 'type' => 'link_color', 'id' => 'color_with_afp', 'wp-picker' => false, 'default' => [ 'color' => 'red', 'hover' => 'green' ] ],
+    ]],
+
+    [ 'title' => 'Tabs', 'subtitle' => 'subtitle', 'type' => 'tabs', 'id' => 'simtab', 'tabs' => [
+      [ 'title'  => 'First',
+        'fields' => [
+          [ 'title'=> 'Text', 'subtitle' => 'subtitle', 'type' => 'text', 'id' => 'text', 'placeholder' => 'This is placeholder'],
+          [ 'title' => 'Link Color  with AF color Picker', 'type' => 'link_color', 'id' => 'aflink_color_with_afp', 'wp-picker' => false ],
+          [ 'title' => 'Checkboxs', 'id' => 'checkbox', 'type' => 'checkbox', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four' ] ],
+        ]
+      ],
+      [ 'title' => 'Second',
+        'fields' => [
+          [ 'title'=> 'Text', 'subtitle' => 'subtitle', 'type' => 'text', 'id' => 'text', 'placeholder' => 'This is placeholder'],
+          [ 'title' => 'Checkboxs', 'id' => 'checkbox', 'type' => 'checkbox', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four' ] ],
+          [ 'title' => 'Link Color  with AF color Picker', 'type' => 'link_color', 'id' => 'aflink_color_with_afp', 'wp-picker' => false ],
+        ]
+      ],
+    ]],
+
   ]
 ]);
 

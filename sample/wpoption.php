@@ -1,5 +1,4 @@
 <?php
-
 AFW::createWPOption( 'abuWPOption', [
 
   'framework_title' => 'Abu Framrework <small> by Abu sufiyan</small>',
@@ -9,8 +8,8 @@ AFW::createWPOption( 'abuWPOption', [
   'version'         => 'v1.0.0',
   'copyright'       => 'Abu Framework by <a href="http://abusufiyan.com/?ref=abuframework" target="_blank"><small>Abu Sufiyan</small></a>',
 
-  'menu_title'      => 'Abu Framework',
-  'menu_slug'       => 'abu-framework',
+  'menu_title'      => 'AFW Demo',
+  'menu_slug'       => 'abuframeworkdemo',
   'menu_type'       => 'menu',
   'menu_capability' => 'manage_options',
 

@@ -1,5 +1,8 @@
 <?php
-
+$afw_long_options = [];
+for ($i=0; $i <= 20; $i++) { 
+  $afw_long_options['Option-' . $i] = 'Option '. $i;
+}
 
 AFW::createSection( ['abuWPOption', 'tabOn' ], [
     'id'      => 'basicfields',
@@ -234,11 +237,12 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
       ],
 
       [ 
-        'title' => 'Checkbox',
+        'title' => 'Checkbox with Label',
         'subtitle' => 'subtitle',
         'type' => 'checkbox',
-        'id' => 'simplecheckbox',
-        'label' => 'CheckIn'
+        'id' => 'simplecheckboxlabel',
+        'label' => 'You like it.',
+        'desc'  => "'label' => 'You like it.'"
       ],
 
       [
@@ -246,8 +250,8 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
          'subtitle' => 'subtitle',
         'type' => 'checkbox',
         'id' => 'verticalcheckbox',
-        'horizontal' => false, 
-        'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four']
+        'inline' => false, 
+        'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four'],
       ],
 
       [
@@ -256,6 +260,8 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
         'id' => 'checkbox_with_default',
         'default' => 'four',
         'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four'], 
+        'disabled' => ['one'],
+        'desc'  => "'disabled' => ['one']"
       ],
 
       [ 
@@ -268,7 +274,16 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
       ],
 
       [ 
-        'title' => 'Checkbox with default',
+        'title' => 'Checkbox Long',
+        'type' => 'checkbox',
+        'id' => 'multicheckbox_Long', 
+        'multiple' => true,
+        'inline'  => false,
+        'options' => $afw_long_options, 
+      ],
+
+      [ 
+        'title' => 'Checkbox with Dependency',
         'type' => 'checkbox',
         'id' => 'multicheckbox_with_default', 
         'desc' => 'Check any "one" or "three".', 
@@ -368,8 +383,8 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
   
       // Radio
       [ 'title' => 'Radio', 'subtitle' => 'subtitle', 'type' => 'radio', 'id' => 'simpleradio', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four']],
-      [ 'title' => 'Vertically Radio', 'subtitle' => 'subtitle', 'type' => 'radio', 'id' => 'verticalradio', 'horizontal' => false, 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four']],
-      [ 'title' => 'Radio with default', 'type' => 'radio', 'id' => 'radio_with_default', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four'], 'default' => 'four' ],
+      [ 'title' => 'Vertically Radio', 'subtitle' => 'subtitle', 'type' => 'radio', 'id' => 'verticalradio', 'inline' => false, 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four']],
+      [ 'title' => 'Radio with default', 'type' => 'radio', 'disabled' => [ 'one' ], 'subtitle' => "'disabled' => [ 'one' ]", 'id' => 'radio_with_default', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four'], 'default' => 'four' ],
       [ 'title' => 'Radio with help', 'type' => 'radio', 'subtitle' => 'The field of subtitle radio.', 'id' => 'radio_with_help', 'desc' => 'Check any "one" or "two".', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four'], 'help' => 'The field of help radio.' ],
       [ 'title' => 'Radio Dependency', 'type' => 'radio', 'dependency' => [ 'radio_with_help', 'any', 'one,two' ], 'id' => 'chosenradio_with_depend', 'options' => [ 'one' => 'One', 'two' => 'Two', 'three' => 'Three', 'four' => 'Four'], 'help' => 'The field of help radio.' ],
   
@@ -383,7 +398,7 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
       [ 'title' => 'Radio Post_types', 'type' => 'radio', 'id' => 'post_typesradio', 'options' => 'post_types'],
       [ 'title' => 'Radio Roles', 'type' => 'radio', 'id' => 'menusradio', 'options' => 'roles'],
       [ 'title' => 'Radio Sidebars', 'type' => 'radio', 'id' => 'post_typesradio', 'options' => 'sidebars'],
-      
+      [  'title' => 'Checkbox Long', 'type' => 'radio', 'id' => 'radio_Long',  'inline'  => false, 'options' => $afw_long_options, ],
     ]
   ]);
   
@@ -405,6 +420,7 @@ AFW::createSection( ['abuWPOption', 'tabOn' ], [
       [ 'title' => 'With some more UI', 'type' => 'subheading', 'id' => 'subheading_ui' ],
       [ 'title' => 'Textarea Readonly', 'type' => 'Textarea', 'id' => 'Textarea_with_reaqdonly', 'default' => 'This field is readonly field.', 'attr' => [ 'readonly' => 'readonly' ] ],
       [ 'title' => 'Textarea with maxlength (8)', 'type' => 'Textarea', 'id' => 'Textarea_with_maxlenth', 'default' => '12345678', 'attr' => [ 'maxlength' => '8' ] ],
+      [ 'title' => 'Textarea with Rows (8)', 'type' => 'Textarea', 'id' => 'Textarea_with_row', 'rows' => '15' ],
       [ 'title' => 'Textarea with custom styles', 'type' => 'Textarea', 'id' => 'Textarea_with_customstyles', 'style' => [ 'width' => '100%', 'height' => '40px', 'border-color' => '#5b9dd9' ] ],
       [ 'title' => 'Textarea with Full Width', 'type'  => 'Textarea', 'id' => 'Textarea_with_full_width', 'full-width' => true, 'style' => [ 'width' => '50%' ]],
       [ 'title' => 'Textarea with Dependencies', 'desc' => 'type "show next"', 'type' => 'Textarea', 'id' => 'Textarea_with_depend' ],
