@@ -111,6 +111,33 @@ $opts = get_option( 'abuWPOption' ); // unique id
 echo $opts['text']; // id of the field
 echo $opts['textarea']; // id of the field
 ```
+##  Screenshots ##
+
+[![WPOption - AbuFramework](https://i.ibb.co/LzfXLs2/WPOption-Abu-Framework.png "WPOption - AbuFramework")](https://ibb.co/1fxtD4w "WPOption - AbuFramework")
+
+------------
+
+[![Metabox - AbuFramework](https://i.ibb.co/4NtWRmV/Metabox-Abu-Framework.png "Metabox - AbuFramework")](https://ibb.co/h89sF7m "Metabox - AbuFramework")
+
+------------
+
+[![TabOn - AbuFramework](https://i.ibb.co/b1MfbtY/Tab-On-Abu-Framework.png "TabOn - AbuFramework")](https://ibb.co/TcxCWyJ "TabOn - AbuFramework")
+
+------------
+
+[![Widget - AbuFramework](https://i.ibb.co/z4S3HBd/Widgets-Abu-Framework.png "Widget - AbuFramework")](https://ibb.co/vjJNvT9 "Widget - AbuFramework")
+
+------------
+
+[![UserProfile - AbuFramework](https://i.ibb.co/0JBPHwv/User-Profile-Abu-Framework.png "UserProfile - AbuFramework")](https://ibb.co/MN8qFXQ "UserProfile - AbuFramework")
+
+------------
+
+[![Taxonomy - AbuFramework](https://i.ibb.co/hWYnj1n/Taxonomy-Abu-Framework.png "Taxonomy - AbuFramework")](https://ibb.co/Snf1871 "Taxonomy - AbuFramework")
+
+------------
+
+[![WP Page Setting - AbuFramework](https://i.ibb.co/Z8L1L0R/WP-Page-Abu-Framework.png "WP Page Setting - AbuFramework")](https://ibb.co/C71s1fp "WP Page Setting - AbuFramework")
 
 
 ## Features ##
@@ -197,3 +224,7 @@ Please donate to help support development of AbuFramework. If, You can.
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 You can use AbuFramework in the premium theme/plugin and sell theme.. This framework is licensed 100% GPL as WordPress uses.
+
+---
+
+[![Donate to the framework](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif "Donate to the framework")](https://www.paypal.me/yourabusufiyan)
